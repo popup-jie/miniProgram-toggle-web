@@ -1,0 +1,47 @@
+@import '../../static/scss/common.scss';
+
+.popup-title {
+  color: red;
+}
+.popup-wrapper {
+  border-radius: 16px 16px 0px 0px !important;
+  z-index: 10;
+  .popup-title {
+    height: 80px;
+    line-height: 80px;
+    color: $levelTile;
+    font-size: 26px;
+    font-weight: bold;
+    margin-left: 40px;
+  }
+  .pickerActive {
+    color: #47d1b6;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  .van-picker__frame {
+    &::after {
+      border: 0;
+    }
+  }
+  .pickerNormal {
+    font-size: 26px;
+    color: #999;
+  }
+  .saveBtn {
+    width: 670px;
+    height: 80px;
+    line-height: 80px;
+    background: linear-gradient(
+      90deg,
+      rgba(55, 190, 193, 1),
+      rgba(81, 221, 173, 1)
+    );
+    border-radius: 40px;
+    color: #fff;
+    font-size: 32px;
+    margin: 30px auto;
+    border: 0;
+    display: block;
+  }
+}

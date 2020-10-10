@@ -1,0 +1,66 @@
+.btnView::after {
+  animation: fade 0.3s forwards;
+}
+
+@keyframes fade {
+  0% {
+    left: 50%;
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    left: 0;
+    width: 100%;
+  }
+}
+
+:export {
+  baseColor: #f5f5f5;
+  modelBaseColor: white;
+  dividerColor: #ededed;
+  popUpBjColor: rgba(0, 0, 0, 0.4);
+  title: title;
+  ell: ell;
+  ell_2: ell_2;
+  subTitle: subTitle;
+}
+
+.goods-wrapper {
+  width: 710rpx;
+  background: #fff;
+  margin: 20rpx auto 0;
+  border-radius: 16rpx;
+  overflow: hidden;
+}
+
+.goods-wrapper .panel-title {
+  height: 70rpx;
+  padding: 0 20rpx;
+  line-height: 70rpx;
+  font-size: 24rpx;
+  color: #666;
+  border-bottom: 1rpx solid #ededed;
+}
+
+.goods-wrapper .goods-remark {
+  margin: 30rpx 20rpx 0;
+}
+
+.goods-wrapper .goods-remark .price {
+  padding: 20rpx 0;
+}
+
+.goods-wrapper .goods-remark .title,
+.goods-wrapper .goods-remark .value {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.goods-wrapper .goods-remark .price .value text {
+  color: #ff3631;
+}
+
+.goods-wrapper .goods-remark .price:after {
+  left: 0;
+}

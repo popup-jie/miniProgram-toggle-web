@@ -1,0 +1,59 @@
+@import '../../static/scss/common.scss';
+
+.goods-list {
+  padding: 0 20px;
+  margin: 30px 0 0 0;
+  display: flex;
+  .goods-image {
+    width: 200px;
+    height: 200px;
+    background: $baseColor;
+    overflow: hidden;
+    border-radius: $borderRorder;
+    margin-right: 20px;
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .goods-info-wrapper {
+    flex: 1;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    .goods-info-top {
+      .goods-info-header {
+        display: flex;
+        justify-content: space-between;
+        .goods-title {
+          font-size: 26px;
+          color: $levelTile;
+        }
+        .goods-price {
+          font-size: 26px;
+          color: $levelTile;
+        }
+      }
+      .goods-info-sku {
+        margin-top: 8px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 22px;
+        color: #999;
+      }
+    }
+    .goods-info-bottom {
+      display: flex;
+      justify-content: space-between;
+      .price {
+        padding: 0;
+        font-size: 32px;
+        color: #ff3631;
+        .red {
+          font-size: 26px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@import '@scss/common.scss';
+.goods-wrapper {
+  width: $containerWidth;
+  background: #fff;
+  margin: 20px auto 0;
+  border-radius: $borderRorder;
+  overflow: hidden;
+
+  .panel-title {
+    height: 70px;
+    padding: 0 20px;
+    line-height: 70px;
+    font-size: 24px;
+    color: #666;
+    border-bottom: 1px solid rgba(237, 237, 237, 1);
+  }
+
+  .goods-remark {
+    margin: 30px 20px 0;
+    .price {
+      padding: 20px 0;
+    }
+    .title,
+    .value {
+      font-size: 26px;
+      color: $levelTile;
+    }
+    .price .value text {
+      color: #ff3631;
+    }
+    .price:after {
+      left: 0;
+    }
+  }
+}

@@ -1,0 +1,22 @@
+<wxs src="../../utils/common.wxs" module="utils" />
+<view class="goods-wrapper custom-class">
+  <view class="panel-title">发货地：{{list.whName}}</view>
+  <goods-project wx:for="{{list.item}}" wx:for-item="goods" wx:key="*this" 
+  images="{{goods.images}}" 
+  title="{{goods.title}}" 
+  subtotal="{{goods.subtotal}}" 
+  stringSpec="{{goods.stringSpec}}" 
+  spec="{{goods.spec}}" 
+  count="{{goods.count}}"
+  total="{{goods.total}}">
+  </goods-project>
+  <van-cell-group custom-class="goods-remark">
+    <!-- 快递如何实现 -->
+    <van-cell title="选择快递" value="{{list.courier.expName || '请选择配送方式'}}" title-class="title" custom-class="price" value-class="value" is-link="{{ isEdit }}" catch:tap="chooseCourier" />
+    <van-cell title="快递运费" title-class="title" custom-class="price" value-class="value">
+      <text>￥</text>
+      <text>{{utils.toDecimal2(list.courier.courierAllPrice || 0)}}</text>
+    </van-cell>
+    <slot></slot>
+  </van-cell-group>
+</view>
