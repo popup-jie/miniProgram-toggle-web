@@ -1,0 +1,5 @@
+<bottom-popup show="{{ show }}" bind:onClose="popUpOnClose" custom-class="popup-wrapper" title="{{title}}" comfirmText="{{comfirmText}}" bindcomfirmHandle="saveHandle">
+  <view>
+    <van-picker columns="{{ dataColumns }}" value-key="name" visible-item-count="4" column-class="pickerNormal" active-class="pickerActive" bind:change="onChange"></van-picker>
+  </view>
+</bottom-popup>

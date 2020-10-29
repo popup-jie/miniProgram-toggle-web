@@ -1,0 +1,48 @@
+.top-nav {
+  position: relative;
+}
+
+.prohibition {
+  position: relative;
+  width: 100%;
+  .nav {
+    position: relative;
+    left: 0;
+    right: 0;
+    background: inherit;
+  }
+
+  .love-fixed {
+    position: fixed !important;
+    z-index: 1000;
+    top: 0;
+    width: 100%;
+    left: 0;
+  }
+
+  .warpper {
+    display: flex;
+    position: relative;
+    text-align: center;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+
+    .left-icon {
+      position: absolute;
+      left: 30px;
+      align-content: center;
+      display: flex;
+      align-items: center;
+      &.left-icond {
+        left: 9px;
+      }
+      .arrow-left {
+        font-size: 40px;
+      }
+    }
+    .title {
+      font-size: 26px;
+    }
+  }
+}

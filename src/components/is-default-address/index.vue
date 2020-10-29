@@ -1,6 +1,6 @@
 <template>
   <div class="components-class">
-    <div  class="isDefaultAddress-info" @click.stop="clickAddress()"><div  class="icon-wrapper"><img  src="/images/address_icon.png" lazy-load /></div><div  class="info-text"><div  class="user-info"><van-tag  custom-class="tag" v-if="showTag">默认</van-tag><div  class="user-name van-ellipsis">{{isDefault.realName || '-'}}</div><div  class="user-phone van-ellipsis">{{ isDefault.phone }}</div></div><div  class="user-address">
+    <div  class="isDefaultAddress-info custom-class" @click.stop="clickAddress()"><div  class="icon-wrapper"><img  src="/images/address_icon.png" lazy-load /></div><div  class="info-text"><div  class="user-info"><div  class="user-name van-ellipsis">{{isDefault.realName || '-'}}</div><div  class="user-phone van-ellipsis">{{ isDefault.phone }}</div></div><div  class="user-address">
       {{ isDefault.province }}{{ isDefault.city }}{{ isDefault.district }}{{ isDefault.detail }}
     </div></div><div  class="right-icon" v-show="!!isShowRightIcon"><van-icon  name="arrow" custom-class="icon"></van-icon></div></div>
   </div>
@@ -8,10 +8,6 @@
 
 <script>
   import utils from "../../utils/common.wxs";
-// components/choose-courier/index.js
-
-
-import { dd } from '@api/dd';
 
 export default {
   props: {
@@ -53,7 +49,7 @@ export default {
   background: #fff;
   margin: 0 auto 0;
   border-radius: $borderRorder;
-  padding: 30px 20px;
+  padding: 50px 40px;
   display: flex;
   align-items: center;
   align-content: center;
@@ -63,42 +59,46 @@ export default {
     border-radius: 4px;
     font-size: 22px;
     font-weight: bold;
+    // width: 66rpx;
   }
   .icon-wrapper {
-    width: 60px;
-    height: 60px;
+    width: 34px;
+    height: 42px;
     // background: red;
-    margin-right: 20px;
+    margin-right: 30px;
     image {
-      width: 60px;
-      height: 60px;
+      width: 34px;
+      height: 42px;
     }
   }
   .info-text {
     flex: 1;
     .user-info {
-      display: flex;
-      align-items: center;
-      align-content: center;
+      // width: 100%;
+      @include clearfix();
+      line-height: 44px;
       .tag {
         background: rgba(71, 209, 182, 1);
         border-radius: 4px;
         font-size: 22px;
         font-weight: bold;
         margin-right: 10px;
+        float: left;
       }
       .user-name {
         margin: 0 13px 0 0;
         color: $levelTile;
         font-size: 32px;
         font-weight: bold;
-        max-width: 200px;
+        max-width: 316px;
+        float: left;
       }
       .user-phone {
         font-weight: bold;
         color: $levelTile;
         font-size: 26px;
-        max-width: 200px;
+        max-width: 39%;
+        float: left;
       }
     }
     .user-address {
@@ -109,9 +109,13 @@ export default {
       word-wrap: break-word; /* IE */
     }
   }
+  .right-icon {
+    margin-left: 20rpx;
+    // width: 80rpx;
+  }
   .icon {
     font-size: 30px;
-    margin-left: 20px;
+    // margin-left: 20px;
     color: #666;
   }
 }

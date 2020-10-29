@@ -4,7 +4,7 @@ const { POINT_CONVERSION_COMPRESSED } = require('constants');
 
 
 // vue 路由组件路径
-const VueCompoentsPath = path.resolve(__dirname, '../src/components')
+const vueComponentsPath = path.resolve(__dirname, '../src/components')
 // vue 路由模板
 const filename = path.resolve(__dirname, './vueTemplate/vue')
 const file = fs.readFileSync(filename, 'utf8');
@@ -115,7 +115,7 @@ console.log(dirs)
 
 function MapForEach(map) {
   for (let [key, value] of map.entries()) {
-    let compoentpath = path.join(VueCompoentsPath, '/', key)
+    let compoentpath = path.join(vueComponentsPath, '/', key)
     fs.mkdir(compoentpath, { recursive: true }, (err) => {
 
     });

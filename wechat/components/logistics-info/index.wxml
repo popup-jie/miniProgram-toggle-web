@@ -1,0 +1,28 @@
+<bottom-popup show="{{ popupVisible }}" bind:onClose="onClose" titleStyle="" custom-class="popup-wrapper-logis" title="该订单被拆成以下包裹" use-footer-slot height="60">
+  <scroll-view scroll-y="{{true}}" style="height: 580rpx;">
+    <view class="popup-wrapper-list" wx:for="{{logisticsInfo.deliveryLolgisticsList}}">
+      <view class="popup-wrapper-list-header">
+        <view class="status">
+          {{item.status == 1 ? '待发货' : item.status == 2 ? '拣货中':item.status == 3 ? '运输中':'已签收'}}
+        </view>
+        <view class="deliveryCode" wx:if="{{item.status != 1}}">{{logisticsInfo.expName}}：{{item.deliveryNo}}</view>
+      </view>
+      <view class="popup-wrapper-list-info">
+        <view class="allCount">共{{item.totalNum}}件商品</view>
+        <view class="lookbtn" catch:tap="lookLogistics" wx:if="{{item.status != 1}}" data-item="{{item}}">查看物流</view>
+      </view>
+      <view class="popup-wrapper-list-panel" wx:for="{{item.ordersDetailList}}" wx:for-item="det">
+        <view class="list">
+          <view class="goods-images">
+            <image src="{{det.image}}" />
+            <view class="images-info">{{det.deliveryNum || det.num}}{{det.unit}}</view>
+          </view>
+          <view class="goods-info">
+            <view class="goods-info-title van-ellipsis">{{det.goodsName}}</view>
+            <view class="goods-info-skus">{{det.attuInfo}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</bottom-popup>

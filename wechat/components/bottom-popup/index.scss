@@ -1,0 +1,45 @@
+@import '@scss/common.scss';
+
+.bottom-popup {
+  border-radius: 20px 20px 0px 0px;
+  padding: 0 40px;
+  .title {
+    font-size: 38px;
+    color: #333;
+    padding-top: 58px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    padding-bottom: 30px;
+    .closeIcon {
+      position: absolute;
+      right: 30px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+  // .van-popup__close-icon--top-right {
+  //   top: 66px;
+  //   width: 44px;
+  //   height: 44px;
+  //   background: #f5f5f5;
+  //   border-radius: 50%;
+  // }
+
+  .footer {
+    .saveBtn {
+      width: 670px;
+      height: 80px;
+      line-height: 80px;
+      background: #a5d50c;
+      border-radius: 40px;
+      color: #fff;
+      font-size: 30px;
+      margin: 30px auto;
+      border: 0;
+      display: block;
+    }
+  }
+}

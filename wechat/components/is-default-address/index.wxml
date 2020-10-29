@@ -1,11 +1,11 @@
 <wxs src="../../utils/common.wxs" module="utils" />
-<view class="isDefaultAddress-info" catch:tap="clickAddress">
+<view class="isDefaultAddress-info custom-class" catch:tap="clickAddress">
   <view class="icon-wrapper">
-    <image src="/images/address_icon.png" lazy-load/>
+    <image src="/images/address_icon.png" lazy-load />
   </view>
   <view class="info-text">
     <view class="user-info">
-      <van-tag custom-class="tag" wx:if="{{showTag}}">默认</van-tag>
+      <!-- <van-tag custom-class="tag" wx:if="{{showTag}}">默认</van-tag> -->
       <view class="user-name van-ellipsis">{{isDefault.realName || '-'}}</view>
       <view class="user-phone van-ellipsis">{{ isDefault.phone }}</view>
     </view>

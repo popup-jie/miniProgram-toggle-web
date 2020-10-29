@@ -1,0 +1,96 @@
+.popup-wrapper-logis {
+  scroll-view {
+    // padding-top: 50px;
+  }
+}
+.popup-wrapper-list {
+  margin-bottom: 50px;
+  .popup-wrapper-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    .status {
+      font-size: 28px;
+      color: #ff5332;
+    }
+    .deliveryCode {
+      font-size: 26px;
+      color: #999999;
+    }
+  }
+  .popup-wrapper-list-info {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+    .allCount {
+      font-size: 26px;
+      color: #999999;
+    }
+
+    .lookbtn {
+      border: 1px solid #999999;
+      min-width: 130px;
+      height: 42px;
+      font-size: 24px;
+      border-radius: 42px;
+      font-weight: 500;
+      color: #666666;
+      padding: 0 20px;
+      text-align: center;
+    }
+  }
+
+  .popup-wrapper-list-panel {
+    margin-top: 20px;
+
+    .list {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      align-content: center;
+    }
+
+    .goods-images {
+      width: 130px;
+      height: 130px;
+      position: relative;
+      background: #ffffff;
+      image {
+        width: 130px;
+        height: 130px;
+      }
+      .images-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 36px;
+        background: rgba(0, 0, 0, 0.2);
+        font-size: 24px;
+        font-weight: bold;
+        color: #ffffff;
+        line-height: 36px;
+        text-align: center;
+      }
+    }
+    .goods-info {
+      margin-left: 20px;
+      flex: 1;
+      .goods-info-title {
+        font-size: 30px;
+        font-weight: 500;
+        color: #333333;
+        width: 560px;
+      }
+      .goods-info-skus {
+        margin-top: 20px;
+        font-size: 24px;
+        font-weight: 500;
+        color: #999999;
+      }
+    }
+  }
+}

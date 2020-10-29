@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "shareBox": "/pages/details/component/shareBox/shareBox"
+  }
+}

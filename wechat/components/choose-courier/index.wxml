@@ -1,5 +1,0 @@
-<van-popup show="{{ show }}" bind:close="popUpOnClose" position="bottom" round custom-class="popup-wrapper" closeable=''>
-  <view class="popup-title">请选择配送方式</view>
-  <van-picker columns="{{ dataColumns }}" value-key="expName" visible-item-count="4" column-class="pickerNormal" active-class="pickerActive" bind:change="onChange"></van-picker>
-  <van-button round custom-class="saveBtn" catch:tap="saveHandle">确定</van-button>
-</van-popup>

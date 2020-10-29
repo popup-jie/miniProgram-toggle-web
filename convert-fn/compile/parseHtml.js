@@ -32,7 +32,7 @@ function htmlToggle(str) {
   parser.end();
   // console.log(nodeList)
   // console.log(nodeList.join(''))
-  return nodeList.join('')
+  return nodeList.join('\n')
 }
 
 function generateEndTag(str, tag) {

@@ -1,6 +1,6 @@
 <template>
   <div class="components-class">
-    <div  class="floor-banner custom-class" @click.stop="lookDetail(item)"><div  class="image-wrapper"><img :src="item.image0 || '/images/pro.png'" lazy-load /></div><div  class="columns-wrapper"><div  class="columns-title van-ellipsis">{{ item.goodsName }}</div><div  class="columns-desc van-ellipsis">{{ item.goodsInfo }}</div><div  class="columns-control bottom"><div  class="price" v-if="showPrice"><span  class="symbol">￥</span><span >{{ utils.toDecimal2(item.priceRange || '0') }}</span></div></div></div></div><slot  name="footer"></slot>
+    <div  class="floor-banner custom-class" @click.stop="lookDetail(item)"><div  class="image-wrapper"><img :src="item.image0" lazy-load mode="aspectFit" /></div><div  class="columns-wrapper"><div  class="columns-title van-ellipsis">{{ item.goodsName }}</div><div :class="columns-desc splitLine">{{ item.goodsInfo }}</div><div  class="columns-control bottom"><div  class="price" v-if="showPrice"><block  v-for="(price, index) in item.priceRange" :key="index"><span  class="symbol">¥</span><span >{{price || '0'}}</span><span  v-if="item.priceRange.length > 1 && index == 0">-</span></block></div><div  class="add" v-if="goBuy"><div  class="btn">去购买</div></div></div></div></div><slot  name="footer"></slot>
   </div>
 </template>
 
@@ -20,7 +20,19 @@ export default {
       type: Boolean,
       default: true
 
+    },
+    splitLine: {
+      type: String,
+      default: 'van-ellipsis'
+      // value: 'van-multi-ellipsis--l3'
+
+    },
+    goBuy: {
+      type: Boolean,
+      default: true
+
     }
+
   },
 
   /**
@@ -38,9 +50,7 @@ export default {
       this.$emit('lookDetail', this.data.item);
     }
   },
-  beforeCreate() {
-    console.log(this.data.item);
-  }
+  beforeCreate() {}
 };
 </script>
 

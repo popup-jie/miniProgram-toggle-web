@@ -1,6 +1,6 @@
 <template>
   <div class="components-class">
-    <div  class="scroll-columns"><scroll-div  scroll-x><div  class="columns-wrapper" v-for="(item, index) in list" @click.stop="lookDetail(item)" :key="index"><div  class="image-wrapper"><img :src="item.image0 || '/images/pro.png'" lazy-load /></div><div  class="columns-title van-ellipsis">{{ item.goodsName }}</div><div  class="columns-desc van-ellipsis">{{ item.goodsInfo }}</div><div  class="columns-control"><div  class="price"><span  class="symbol">￥</span><span >{{ utils.toDecimal2(item.priceRange || '0') }}</span></div></div></div></scroll-div></div>
+    <div  class="scroll-columns"><scroll-div  scroll-x><div  class="columns-wrapper" v-for="(item, index) in list" @click.stop="lookDetail(item)" :key="index"><div  class="image-wrapper"><img :src="item.image0" lazy-load mode="aspectFit" /></div><div  class="columns-title van-ellipsis">{{ item.goodsName }}</div><div  class="columns-control"><div  class="price van-ellipsis"><block  v-for="(price, index) in item.priceRange" :key="index"><span  class="symbol">¥</span><span >{{price || '0'}}</span><span  v-if="item.priceRange.length > 1 && index == 0"> -</span></block></div></div></div></scroll-div></div>
   </div>
 </template>
 

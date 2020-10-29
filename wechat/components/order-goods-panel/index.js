@@ -1,15 +1,29 @@
-// components/choose-courier/index.js
+
 import { ybfComponent } from '../common/index'
 
 ybfComponent({
-  
+  options: {
+    multipleSlots: true
+  },
   props: {
+    // 快递是否可点
     isEdit: {
       type: Boolean,
       value: false
     },
+    showFooter: {
+      type: Boolean,
+      value: true
+    },
+    // 数据对象
     list: Object,
-    index: Number
+    // 当前下标
+    index: Number,
+    // 是否包邮 默认为不包邮
+    isFreeShipping: {
+      type: Boolean,
+      value: false
+    },
   },
 
   /**
@@ -33,6 +47,12 @@ ybfComponent({
           index: this.data.index
         })
       }
+    },
+    lookLogic() {
+      this.$emit('lookLogic', {
+        list: this.data.list,
+        index: this.data.index
+      })
     },
   }
 })

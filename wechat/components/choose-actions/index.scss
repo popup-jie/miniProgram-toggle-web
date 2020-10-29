@@ -1,0 +1,23 @@
+@import '../../static/scss/common.scss';
+
+.popup-title {
+  color: red;
+}
+.popup-wrapper {
+  // border-radius: 16px 16px 0px 0px !important;
+  z-index: 10;
+  .pickerActive {
+    color: #A5D50C;
+    font-size: 34px;
+    font-weight: bold;
+  }
+  .van-picker__frame {
+    &::after {
+      border: 0;
+    }
+  }
+  .pickerNormal {
+    font-size: 28px;
+    color: #DDD;
+  }
+}

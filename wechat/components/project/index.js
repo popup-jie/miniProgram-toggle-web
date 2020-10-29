@@ -1,4 +1,6 @@
-import { ybfComponent } from '../common/index'
+import {
+  ybfComponent
+} from '../common/index'
 ybfComponent({
   options: {
     multipleSlots: true
@@ -10,7 +12,13 @@ ybfComponent({
     // 数据对象
     item: {
       type: Object,
-      value: () => { }
+      value: () => {}
+    },
+
+    items: {
+      type: Array,
+      // value： {}
+      value: () => []
     },
 
     // 图片
@@ -46,6 +54,5 @@ ybfComponent({
   /**
    * 组件的方法列表
    */
-  methods: {
-  }
+  methods: {}
 })

@@ -5,31 +5,66 @@
   margin: 20px auto 0;
   border-radius: $borderRorder;
   overflow: hidden;
+  padding: 50px 40px 20px;
 
   .panel-title {
-    height: 70px;
-    padding: 0 20px;
-    line-height: 70px;
-    font-size: 24px;
-    color: #666;
-    border-bottom: 1px solid rgba(237, 237, 237, 1);
+    // padding: 20px;
+    display: flex;
+    flex-direction: column;
+    // align-content: center;
+    // align-items: center;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    // border-bottom: 1px solid rgba(237, 237, 237, 1);
+    .flex {
+      display: flex;
+      justify-content: space-between;
+    }
+    .green {
+      color: #47d1b6;
+    }
+    .sendTime {
+      margin-top: 4px;
+    }
+  }
+
+  .goods-project-list {
+    border-bottom: 1px solid #f0f0f0;
+    &.noBorder {
+      border: 0;
+    }
   }
 
   .goods-remark {
-    margin: 30px 20px 0;
+    margin: 30px 0 0;
     .price {
-      padding: 20px 0;
+      padding: 28px 0;
     }
     .title,
     .value {
-      font-size: 26px;
-      color: $levelTile;
+      font-size: 28px;
+      color: #333;
+    }
+    .tag {
+      border: 1px solid #ff5332;
+      border-radius: 4px;
+      font-size: 22px;
+      text-align: center;
+      color: #ff5332;
+      font-weight: bold;
+      padding: 5px 10px;
+      margin-left: 15px;
     }
     .price .value text {
-      color: #ff3631;
+      // color: #ff3631;
     }
     .price:after {
       left: 0;
+    }
+
+    &::after {
+      border: 0;
     }
   }
 }

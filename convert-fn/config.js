@@ -23,7 +23,7 @@ const pageConfig = {
 }
 
 // vue组件地址
-const vueCompoentsPath = '../src/components'
+const vueComponentsPath = '../build'
 
 // vue模板文件地址
 const vueTemplatePath = './vueTemplate/vue'
@@ -35,7 +35,7 @@ const miniProgramPath = '../wechat/components'
 module.exports = {
   compoentsConfig,
   pageConfig,
-  vueCompoentsPath,
+  vueComponentsPath,
   vueTemplatePath,
   miniProgramPath
 }

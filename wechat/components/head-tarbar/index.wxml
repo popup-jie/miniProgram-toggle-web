@@ -1,0 +1,16 @@
+<!-- 常量8 代表，距离偏下多少像素 -->
+<view class="prohibition custom-class">
+  <view class="nav" class="{{isFixed ? 'love-fixed': ''}}" style="height: {{ nav.height + 5 + 'px'}};background-color:{{color}}">
+    <view style="height: {{nav.top + 'px'}}"></view>
+    <view style="height: {{nav.height - nav.top + 'px'}}" class="warpper">
+      <view class="left-icon {{isGoBack ? 'left-icond': ''}}">
+        <van-icon name="arrow-left" custom-class="arrow-left" wx:if="{{isGoBack}}" catch:tap="navBack" />
+        <slot name="left-icon"></slot>
+      </view>
+      <view class="title">{{title}}</view>
+    </view>
+    <view style="height: 8px"></view>
+  </view>
+  <!-- 内容块 -->
+  <view wx:if="{{isSeat}}" style="height: {{ nav.height + 'px' }}"></view>
+</view>

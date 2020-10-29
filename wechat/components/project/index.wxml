@@ -1,35 +1,31 @@
 <wxs src="../../utils/common.wxs" module="utils" />
-<wxs src="../../utils/common.wxs" module="utils2" />
 <view class="goods-list custom-class">
   <view class="goods-image">
-    <image src="{{images || '/images/pro_s.png' }}" lazy-load />
+    <image src="{{images}}" mode="aspectFit" lazy-load />
   </view>
   <view class="goods-info-wrapper">
     <view class="goods-info-top">
       <view class="goods-info-header">
-        <view class="goods-title">{{title || '益生君益生君益生君' }}</view>
-        <view class="goods-price">￥{{utils.toDecimal2(subtotal || '18')}}</view>
+        <view class="goods-title van-ellipsis">{{title || '益生君益生君益生君' }}</view>
+        <!-- <view class="goods-price">¥{{utils.toDecimal2(subtotal || '18')}}</view> -->
       </view>
       <view class="goods-info-sku">
         <view class="goods-info-sku-spec">
           <view wx:for="{{spec}}" wx:key="*this">{{item.name}}：{{item.value}}</view>
           <view wx:if="{{stringSpec && spec.length == 0}}">{{stringSpec}}</view>
-          <!-- <text wx:for="{{spec}}" wx:key="*this">{{item}}</text> -->
-          <!-- {{spec || '玫瑰味 20盒' }} -->
         </view>
-        <view class="goods-info-sku-count">x{{count || '100' }}</view>
+        <!-- <view class="goods-info-sku-count">x{{count || '100' }}</view> -->
       </view>
     </view>
     <view class="goods-info-bottom">
       <view class="price">
-        <text class="red">￥</text>
-        <text>{{utils.toDecimal2(total || '1999')}}</text>
+        <text class="red">¥</text>
+        <text>{{utils.toDecimal2(subtotal || '1999')}}</text>
       </view>
-      <view>
+      <view class="price-count">x{{count || '100' }}</view>
+      <!-- <view>
         <slot name="priceExtra"></slot>
-      </view>
+      </view> -->
     </view>
   </view>
 </view>
-<view data-item="a" data-items="d" capture-catch:touchstart="handleTap2"></view>
-<rich-text nodes="dd"></rich-text>

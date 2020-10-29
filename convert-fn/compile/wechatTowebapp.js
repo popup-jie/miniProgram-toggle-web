@@ -1,8 +1,8 @@
 const path = require('path')
 const fs = require('fs')
-const { vueCompoentsPath, vueTemplatePath } = require('../config')
+const { vueComponentsPath, vueTemplatePath } = require('../config')
 // vue 路由组件路径
-const VueCompoentsPath = path.join(__dirname, '../', vueCompoentsPath)
+const _VueComponentsPath = path.join(__dirname, '../', vueComponentsPath)
 // vue 路由模板
 const filename = path.join(__dirname, '../', vueTemplatePath)
 
@@ -13,11 +13,15 @@ const wechatTowebapp = (map) => {
   for (let [key, value] of map.entries()) {
     let filePath = value[0].split('\\')
     filePath.pop()
+     // 删除 /compoents 前的磁盘路径
     let startIndex = filePath.indexOf('components')
     filePath.splice(0, startIndex + 1)
-    // 删除 /compoents 前的磁盘路径
-    let compoentpath = path.join(VueCompoentsPath, '/', filePath.join('//'))
-    fs.mkdir(compoentpath, { recursive: true }, (err) => {
+
+   
+    let componentspath = path.join(_VueComponentsPath, '/', filePath.join('//'))
+
+    console.log(componentspath)
+    fs.mkdir(componentspath, { recursive: true }, (err) => {
       let file = fs.readFileSync(filename, 'utf8');
       let jsScriptFileStr = ''
 
@@ -46,7 +50,7 @@ const wechatTowebapp = (map) => {
         file = file.replace('<!-- script -->', jsScriptFileStr || 'export default {}')
         // 处理js部分
 
-        fs.writeFile(path.join(compoentpath, '/', 'index.vue'), file, (err) => {
+        fs.writeFile(path.join(componentspath, '/', 'index.vue'), file, (err) => {
           if (err) {
             console.log(err)
           }
@@ -54,7 +58,13 @@ const wechatTowebapp = (map) => {
       } else {
         for (let i = 0;i < value.length;i++) {
           let nowFile = fs.readFileSync(value[i], 'utf8');
-          fs.writeFile(value[i], nowFile, (err) => {
+        
+          // 拿到当前文件名字，重写文件路径
+          let filePath = value[i].split('\\')
+          let _name = filePath.pop()
+
+          
+          fs.writeFile(path.join(componentspath, '/', _name), nowFile, (err) => {
             if (err) {
               console.log(err)
             }

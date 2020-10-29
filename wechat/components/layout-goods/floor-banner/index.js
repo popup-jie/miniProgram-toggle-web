@@ -1,4 +1,6 @@
-import { ybfComponent } from '../../common/index'
+import {
+  ybfComponent
+} from '../../common/index'
 ybfComponent({
   options: {
     multipleSlots: true
@@ -12,7 +14,17 @@ ybfComponent({
     showPrice: {
       type: Boolean,
       value: true
-    }
+    },
+    splitLine: {
+      type: String,
+      value: 'van-ellipsis'
+      // value: 'van-multi-ellipsis--l3'
+    },
+    goBuy: {
+      type: Boolean,
+      value: true
+    },
+
   },
 
   /**
@@ -30,7 +42,5 @@ ybfComponent({
       this.$emit('lookDetail', this.data.item)
     }
   },
-  created() {
-    console.log(this.data.item)
-  }
+  created() { }
 })

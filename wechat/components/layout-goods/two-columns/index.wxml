@@ -1,30 +1,35 @@
 <wxs src="../../../utils/common.wxs" module="utils" />
 <view class="two-columns">
-  <view class="columns-wrapper" wx:for="{{list}}" catch:tap="lookDetail" data-item="{{item}}">
+  <view class="columns-wrapper {{item.noBorder ? 'noBorder' : ''}}" wx:for="{{forlist}}" catch:tap="lookDetail" data-item="{{item}}" wx:key="*this">
     <view class="image-wrapper">
-      <image src="{{item.image0 || '/images/pro.png' }}" lazy-load />
+      <image src="{{item.image0 }}" lazy-load mode="aspectFit" />
     </view>
     <view class="columns-title van-ellipsis">{{ item.goodsName }}</view>
     <view class="columns-desc van-ellipsis">{{ item.goodsInfo }}</view>
     <view class="columns-control">
       <view class="price">
-        <text class="symbol">￥</text>
-        <text>{{ utils.toDecimal2(item.priceRange || '0') }}</text>
+        <block wx:for="{{item.priceRange}}" wx:key="*this" wx:for-item="price">
+          <text class="symbol">¥</text>
+          <!-- <text>{{ utils.toDecimal2(price || '0') }}</text> -->
+          <text>{{price || '0'}}</text>
+          <text wx:if="{{item.priceRange.length > 1 && index == 0}}">-</text>
+        </block>
       </view>
-      <!-- <view class="add">
-        <image src="/images/add_icon.png" />
-      </view> -->
+      <view class="add">
+        <view class="btn">去购买</view>
+        <!-- <image src="/images/add_icon.png" /> -->
+      </view>
     </view>
   </view>
   <!-- <view class="columns-wrapper">
     <view class="image-wrapper">
-      <image src="/images/pro_s.png" />
+      <image src="http://shop-file.ybf-china.com/56e174c502984fc481c753cbf509017d.png" />
     </view>
     <view class="columns-title van-ellipsis">益生君益生君益生君益生君益生君益生君益生君益生君</view>
     <view class="columns-desc van-ellipsis">产品介绍123产品介绍123产品介绍123产品介绍123产品介绍123</view>
     <view class="columns-control">
       <view class="price">
-        <text class="symbol">￥</text>
+        <text class="symbol">¥</text>
         <text>168.00</text>
       </view>
       <view class="add">

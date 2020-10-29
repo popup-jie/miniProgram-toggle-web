@@ -1,12 +1,11 @@
 <template>
   <div class="components-class">
-    <div  class="goods-list custom-class"><div  class="goods-image"><img :src="images || '/images/pro_s.png'" lazy-load /></div><div  class="goods-info-wrapper"><div  class="goods-info-top"><div  class="goods-info-header"><div  class="goods-title">{{title || '益生君益生君益生君' }}</div><div  class="goods-price">￥{{utils.toDecimal2(subtotal || '18')}}</div></div><div  class="goods-info-sku"><div  class="goods-info-sku-spec"><div  v-for="(item, index) in spec" :key="index">{{item.name}}：{{item.value}}</div><div  v-if="stringSpec && spec.length == 0">{{stringSpec}}</div></div><div  class="goods-info-sku-count">x{{count || '100' }}</div></div></div><div  class="goods-info-bottom"><div  class="price"><span  class="red">￥</span><span >{{utils.toDecimal2(total || '1999')}}</span></div><div ><slot  name="priceExtra"></slot></div></div></div></div><div  @mousedown="handleTap2"></div><div  v-html="dd"></div>
+    <div  class="goods-list custom-class"><div  class="goods-image"><img :src="images" mode="aspectFit" lazy-load /></div><div  class="goods-info-wrapper"><div  class="goods-info-top"><div  class="goods-info-header"><div  class="goods-title van-ellipsis">{{title || '益生君益生君益生君' }}</div></div><div  class="goods-info-sku"><div  class="goods-info-sku-spec"><div  v-for="(item, index) in spec" :key="index">{{item.name}}：{{item.value}}</div><div  v-if="stringSpec && spec.length == 0">{{stringSpec}}</div></div></div></div><div  class="goods-info-bottom"><div  class="price"><span  class="red">¥</span><span >{{utils.toDecimal2(subtotal || '1999')}}</span></div><div  class="price-count">x{{count || '100' }}</div></div></div></div>
   </div>
 </template>
 
 <script>
-  import utils2 from "../../utils/common.wxs";
-import utils from "../../utils/common.wxs";
+  import utils from "../../utils/common.wxs";
 export default {
   options: {
     multipleSlots: true
@@ -19,6 +18,12 @@ export default {
     item: {
       type: Object,
       value: () => {}
+    },
+
+    items: {
+      type: Array,
+      // value： {}
+      value: () => []
     },
 
     // 图片
@@ -64,12 +69,12 @@ export default {
   @import '../../static/scss/common.scss';
 
 .goods-list {
-  padding: 0 20px;
-  margin: 30px 0 0 0;
+  padding: 30px 0;
+  margin: 0;
   display: flex;
   .goods-image {
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
     background: $baseColor;
     overflow: hidden;
     border-radius: $borderRorder;
@@ -84,14 +89,14 @@ export default {
     justify-content: space-between;
     display: flex;
     flex-direction: column;
-    padding: 8px 0;
+    padding: 7px 0;
     .goods-info-top {
       .goods-info-header {
         display: flex;
         justify-content: space-between;
         .goods-title {
-          font-size: 26px;
-          color: $levelTile;
+          font-size: 30px;
+          color: #333333;
         }
         .goods-price {
           font-size: 26px;
@@ -99,7 +104,7 @@ export default {
         }
       }
       .goods-info-sku {
-        margin-top: 8px;
+        margin-top: 40px;
         display: flex;
         justify-content: space-between;
         font-size: 22px;
@@ -111,11 +116,15 @@ export default {
       justify-content: space-between;
       .price {
         padding: 0;
-        font-size: 32px;
-        color: #ff3631;
-        .red {
-          font-size: 26px;
-        }
+        font-size: 30px;
+        color: #333333;
+        // .red {
+        //   font-size: 26px;
+        // }
+      }
+      .price-count {
+        font-size: 28px;
+        color: #999999;
       }
     }
   }

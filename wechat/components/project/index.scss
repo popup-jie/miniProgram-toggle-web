@@ -1,12 +1,12 @@
 @import '../../static/scss/common.scss';
 
 .goods-list {
-  padding: 0 20px;
-  margin: 30px 0 0 0;
+  padding: 30px 0;
+  margin: 0;
   display: flex;
   .goods-image {
-    width: 200px;
-    height: 200px;
+    width: 160px;
+    height: 160px;
     background: $baseColor;
     overflow: hidden;
     border-radius: $borderRorder;
@@ -21,14 +21,14 @@
     justify-content: space-between;
     display: flex;
     flex-direction: column;
-    padding: 8px 0;
+    padding: 7px 0;
     .goods-info-top {
       .goods-info-header {
         display: flex;
         justify-content: space-between;
         .goods-title {
-          font-size: 26px;
-          color: $levelTile;
+          font-size: 30px;
+          color: #333333;
         }
         .goods-price {
           font-size: 26px;
@@ -36,7 +36,7 @@
         }
       }
       .goods-info-sku {
-        margin-top: 8px;
+        margin-top: 40px;
         display: flex;
         justify-content: space-between;
         font-size: 22px;
@@ -48,11 +48,15 @@
       justify-content: space-between;
       .price {
         padding: 0;
-        font-size: 32px;
-        color: #ff3631;
-        .red {
-          font-size: 26px;
-        }
+        font-size: 30px;
+        color: #333333;
+        // .red {
+        //   font-size: 26px;
+        // }
+      }
+      .price-count {
+        font-size: 28px;
+        color: #999999;
       }
     }
   }

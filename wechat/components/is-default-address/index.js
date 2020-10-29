@@ -1,7 +1,5 @@
-// components/choose-courier/index.js
-import { ybfComponent } from '../common/index'
 
-import {dd} from '@api/dd'
+import { ybfComponent } from '../common/index'
 
 ybfComponent({
   props: {

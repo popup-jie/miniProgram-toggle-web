@@ -1,0 +1,17 @@
+<view class=" custom-class">
+  <!--  -->
+  <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-class="bottom-popup" custom-style="max-height: {{height}}%">
+    <slot name="title" wx:if="{{ useTitleSlot }}" />
+    <view class="title" wx:else style="{{titleStyle}}">
+      {{title}}
+      <image src="/images/search_shut.png" class="closeIcon" bind:tap="onClose" />
+    </view>
+    <slot></slot>
+    <slot name="footer" wx:if="{{ useFooterSlot }}"></slot>
+    <view class="footer" wx:else>
+      <van-button round custom-class="saveBtn" catch:tap="saveHandle">
+        {{comfirmText || '确认'}}
+      </van-button>
+    </view>
+  </van-popup>
+</view>

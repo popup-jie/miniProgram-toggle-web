@@ -1,9 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "floor-banner": "/components/layout-goods/floor-banner/index",
-    "two_columns": "/components/layout-goods/two-columns/index",
-    "scroll-columns": "/components/layout-goods/scroll-columns/index",
-    "detailSwiper": "/pages/details/component/swiper/swiper"
-  }
-}

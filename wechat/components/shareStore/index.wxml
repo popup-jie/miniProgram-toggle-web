@@ -1,0 +1,46 @@
+<van-popup round z-index="100" class="sharePopUp" position="bottom" closeable show="{{ show }}" bind:close="onClose">
+  <view class="con">
+    <view class="h3_title">
+      <text>选择分享方式</text>
+    </view>
+    <view class="shareType">
+      <view class="ul">
+        <view class="li">
+          <block wx:if="{{!userLogin}}">
+            <button bindgetuserinfo="getUserInfo" open-type="getUserInfo" class="saveBtn">
+              <view class="li_top">
+                <image src="/images/merchant/pop_share_img@2x.png"></image>
+              </view>
+              <view class="li_bottom">
+                <text>保存二维码图片</text>
+              </view>
+            </button>
+          </block>
+          <block wx:if="{{userLogin}}">
+            <button bindtap="createShareImage">
+              <view class="li_top">
+                <image src="/images/merchant/pop_share_img@2x.png"></image>
+              </view>
+              <view class="li_bottom">
+                <text>保存二维码图片</text>
+              </view>
+            </button>
+          </block>
+        </view>
+        <view class="li">
+          <button open-type="share">
+            <view class="li_top">
+              <image mode="widthFix" src="/images/merchant/pop_share_applets@2x.png"></image>
+            </view>
+            <view class="li_bottom">
+              <text>分享小程序</text>
+            </view>
+          </button>
+        </view>
+
+      </view>
+    </view>
+  </view>
+</van-popup>
+
+<shareBox bind:onSuccess="shareOnSuccess" type="2" id="shareBox"></shareBox>
