@@ -1,27 +1,40 @@
 <template>
   <div class="components-class">
-    <div  class=" custom-class"><van-popup :show="show" @close="onClose" position="bottom" custom-class="bottom-popup":custom-style="max-height: height%"><slot  name="title" v-if="useTitleSlot"><div  class="title" wx:else:style="titleStyle">
-      {{title}}
-      <img  src="/images/search_shut.png" class="closeIcon" @click="onClose()" />
-</div>
-<slot ></slot>
-<slot  name="footer" v-if="useFooterSlot"></slot>
-<div  class="footer" wx:else><van-button  round custom-class="saveBtn" @click.stop="saveHandle()">
-        {{comfirmText || '确认'}}
-      </van-button>
-</div>
-</slot>
-</van-popup>
-</div>
+    <div class="custom-class">
+      <van-popup
+        :show="show"
+        @close="onClose"
+        position="bottom"
+        custom-class="bottom-popup"
+        :custom-style="'max-height:' + height + '%;'"
+      >
+        <slot name="title" v-if="useTitleSlot"> </slot>
+        <div class="title" v-else :style="titleStyle">
+          {{ title }}
+          <img
+            src="/images/search_shut.png"
+            class="closeIcon"
+            @click="onClose()"
+          />
+        </div>
+        <slot> </slot>
+        <slot name="footer" v-if="useFooterSlot"> </slot>
+        <div class="footer" v-else>
+          <van-button round custom-class="saveBtn" @click.stop="saveHandle()">
+            {{ comfirmText || '确认' }}
+          </van-button>
+        </div></van-popup
+      >
+    </div>
   </div>
 </template>
 
 <script>
-  export default {
+export default {
   props: {
     title: {
       type: String,
-      default: ''
+      default: '',
     },
     show: Boolean,
     useTitleSlot: Boolean,
@@ -29,8 +42,9 @@
     comfirmText: String,
     height: {
       type: Number,
-      default: 60},
-    titleStyle: String
+      default: 60,
+    },
+    titleStyle: String,
   },
 
   /**
@@ -51,14 +65,14 @@
     },
     saveHandle() {
       this.$emit('comfirmHandle');
-    }
-  }
+    },
+  },
 };
 </script>
 
 
 <style lang='scss'>
-  @import '@scss/common.scss';
+@import '@scss/common.scss';
 
 .bottom-popup {
   border-radius: 20px 20px 0px 0px;
@@ -103,5 +117,4 @@
     }
   }
 }
-
 </style>

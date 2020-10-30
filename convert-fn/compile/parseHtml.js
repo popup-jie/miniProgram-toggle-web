@@ -32,7 +32,8 @@ function htmlToggle(str) {
   parser.end();
   // console.log(nodeList)
   // console.log(nodeList.join(''))
-  return nodeList.join('\n')
+  return nodeList.join('')
+  // console.log(parser)
 }
 
 function generateEndTag(str, tag) {
@@ -40,6 +41,8 @@ function generateEndTag(str, tag) {
     tag = '</div>'
   } else if (tag == 'text') {
     tag = '</span>'
+  } else if (tag == 'slot') {
+    tag = '</slot>'
   } else if (tag == 'img' || tag == 'input' || tag == 'wxs') {
     tag = ''
   } else {
@@ -67,15 +70,15 @@ function generateStartTag(tag, attribs) {
   Object.keys(attribs).forEach(item => {
     let oldStr = item
 
-    if (item === 'wx:else') {
+    if (oldStr === 'wx:else') {
       item = 'v-else'
     }
-
 
     // 处理nodes富文本信息
     if (item.indexOf('nodes') > -1) {
       attr += ` v-html="${attribs[oldStr]}"`
     }
+
     // 特殊处理wx:for边界问题
     else if (item.indexOf('wx:for') > -1) {
       if (item == 'wx:for') {
@@ -88,6 +91,7 @@ function generateStartTag(tag, attribs) {
         wxForItemText = attribs[oldStr]
       }
     }
+
     // 特殊处理 data-xxx
     else if (/data-*/.test(item)) {
       let newStr = attr.split(' ')
@@ -110,6 +114,7 @@ function generateStartTag(tag, attribs) {
       })
       attr = newStr.join(' ')
     }
+
     else if (item.indexOf('bind') > -1 || item.indexOf('catch') > -1) {
       if (/bind(:)?tap*/.test(item) || /catch(:)?tap*/.test(item)) {
         attribs[oldStr] = `${attribs[oldStr]}()`
@@ -130,11 +135,12 @@ function generateStartTag(tag, attribs) {
 
       attr += ` ${item}="${attribs[oldStr]}"`
     }
+
     else if (item.indexOf('wx:if') > -1) {
       item = item.replace('wx:if', 'v-if')
       let str = getBracesText(attribs[oldStr])
       attr += ` ${item}="${str}"`
-    } 
+    }
     else if (item.indexOf('wx:elif') > -1) {
       item = item.replace('wx:elif', 'v-else-if')
       let str = getBracesText(attribs[oldStr])
@@ -148,12 +154,16 @@ function generateStartTag(tag, attribs) {
     else {
       let str = attribs[oldStr]
       if (str.trim() == '') {
-        attr += ` ${oldStr}`
+        attr += ` ${item}`
       }
       else {
         if (attribs[oldStr].indexOf('{{') > -1) {
+
+          // 需要判断 小程序这种逻辑： style="height: {{omd}}px; width: {{dd}}; postion: {{postionType}}"
+
+          // 如果存在 ; 或者 : 符号，需要遍历重新递归
           let str = getBracesText(attribs[oldStr])
-          attr += `:${item}="${str}"`
+          attr += ` :${item}="${str}"`
         } else {
           attr += ` ${item}="${str}"`
         }
@@ -173,16 +183,35 @@ function generateStartTag(tag, attribs) {
   }
 
   if (tag == 'img' || tag == 'input' || tag == 'wxs') {
-    return `<${tag} ${attr} />`
+    return `<${tag}${attr} />\r`
   } else {
-    return `<${tag} ${attr}>`
+    return `<${tag}${attr}>\r`
   }
 }
 
 function getBracesText(str) {
+  let newstr = str
+  if (str.indexOf(';') > -1 || str.indexOf(':') > -1) {
+    newstr = ''
+    // height: {{omd}}px; width: {{dd}}; postion: {{postionType}}
+    const semicolonArr = str.split(';')
+    semicolonArr.forEach(semicolon => {
+      const colon = semicolon.split(':')
+      // 移除}} 后的字符，转换为字符串
+      let bracesIndex = colon[1].indexOf('}}')
+      if (bracesIndex > -1) {
+        const extraStr = colon[1].slice(bracesIndex + 2, colon[1].length)
+        colon[1] = colon[1].replace(extraStr, '') + ` + '${extraStr};'`;
+      }
+      newstr += `'${colon[0]}:' + ${colon[1]}`
+    })
+  }
+  return _getBracesText(newstr)
+}
+const _getBracesText = (str) => {
   str = str.replace('{{', '').replace('}}', '')
-  str = str.trim()
-  return str
+  return str.trim()
+
 }
 
 

@@ -1,26 +1,6 @@
 <template>
   <div class="components-class">
-    <div  class="goods-wrapper custom-class"><div  class="panel-title"><div  class="flex">发货地：{{list.whName}}</div>
-</div>
-<block  v-for="(goods, index) in list.item" :key="index"><goods-project :custom-class="goods-project-list list.item.length - 1 == index ? 'noBorder': ''":images="goods.images":title="goods.title":subtotal="goods.subtotal":stringspec="goods.stringSpec":spec="goods.spec":count="goods.count":total="goods.total"><div  v-if="goods.logis.length > 0"><div  @click.stop="lookLogic()"><div  slot="priceExtra" class="looklogis">查看物流</div>
-</div>
-</div>
-</goods-project>
-</block>
-<van-cell-group  custom-class="goods-remark"><block  v-if="showFooter"><van-cell  v-if="!isFreeShipping":border="false":value="list.courier.expName || '请选择配送方式'" title-class="title" custom-class="price" value-class="value":is-link="isEdit" @click.stop="chooseCourier()"><div  slot="title"><span >选择快递</span>
-<span  class="tag">必填</span>
-</div>
-</van-cell>
-<van-cell  wx:else:border="false" value="包邮" title-class="title" custom-class="price" value-class="value"><div  slot="title"><span >选择快递</span>
-</div>
-</van-cell>
-<van-cell  title="快递运费" title-class="title" custom-class="price" value-class="value":border="false"><span >¥</span>
-<span >{{utils.toDecimal2(list.courier.courierAllPrice || 0)}}</span>
-</van-cell>
-</block>
-<slot ></slot>
-</van-cell-group>
-</div>
+    <div  class="goods-wrapper custom-class"><div  class="panel-title"><div  class="flex">发货地：{{list.whName}}</div></div><block  v-for="(goods, index) in list.item" :key="index"><goods-project :custom-class="goods-project-list list.item.length - 1 == index ? 'noBorder': ''":images="goods.images":title="goods.title":subtotal="goods.subtotal":stringspec="goods.stringSpec":spec="goods.spec":count="goods.count":total="goods.total"><div  v-if="goods.logis.length > 0"><div  @click.stop="lookLogic()"><div  slot="priceExtra" class="looklogis">查看物流</div></div></div></goods-project></block><van-cell-group  custom-class="goods-remark"><block  v-if="showFooter"><van-cell  v-if="!isFreeShipping":border="false":value="list.courier.expName || '请选择配送方式'" title-class="title" custom-class="price" value-class="value":is-link="isEdit" @click.stop="chooseCourier()"><div  slot="title"><span >选择快递</span><span  class="tag">必填</span></div></van-cell><van-cell  wx:else:border="false" value="包邮" title-class="title" custom-class="price" value-class="value"><div  slot="title"><span >选择快递</span></div></van-cell><van-cell  title="快递运费" title-class="title" custom-class="price" value-class="value":border="false"><span >¥</span><span >{{utils.toDecimal2(list.courier.courierAllPrice || 0)}}</span></van-cell></block><slot ></slot></van-cell-group></div>
   </div>
 </template>
 

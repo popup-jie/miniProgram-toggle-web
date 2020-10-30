@@ -1,8 +1,6 @@
 <template>
   <div class="components-class">
-    <bottom-popup :show="show" @onclose="popUpOnClose" custom-class="popup-wrapper":title="title":comfirmtext="comfirmText" @comfirmhandle="saveHandle"><div ><van-picker :columns="dataColumns" value-key="name" visible-item-count="4" column-class="pickerNormal" active-class="pickerActive" @change="onChange"></van-picker>
-</div>
-</bottom-popup>
+    <bottom-popup :show="show" @onclose="popUpOnClose" custom-class="popup-wrapper":title="title":comfirmtext="comfirmText" @comfirmhandle="saveHandle"><div ><van-picker :columns="dataColumns" value-key="name" visible-item-count="4" column-class="pickerNormal" active-class="pickerActive" @change="onChange"></van-picker></div></bottom-popup>
   </div>
 </template>
 

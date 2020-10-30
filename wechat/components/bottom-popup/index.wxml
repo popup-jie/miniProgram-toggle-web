@@ -1,7 +1,6 @@
-<view class=" custom-class">
-  <!--  -->
+<view class="custom-class">
   <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-class="bottom-popup" custom-style="max-height: {{height}}%">
-    <slot name="title" wx:if="{{ useTitleSlot }}" />
+    <slot name="title" wx:if="{{ useTitleSlot }}"></slot>
     <view class="title" wx:else style="{{titleStyle}}">
       {{title}}
       <image src="/images/search_shut.png" class="closeIcon" bind:tap="onClose" />

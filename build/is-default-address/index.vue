@@ -1,17 +1,8 @@
 <template>
   <div class="components-class">
-    <div  class="isDefaultAddress-info custom-class" @click.stop="clickAddress()"><div  class="icon-wrapper"><img  src="/images/address_icon.png" lazy-load />
-</div>
-<div  class="info-text"><div  class="user-info"><div  class="user-name van-ellipsis">{{isDefault.realName || '-'}}</div>
-<div  class="user-phone van-ellipsis">{{ isDefault.phone }}</div>
-</div>
-<div  class="user-address">
+    <div  class="isDefaultAddress-info custom-class" @click.stop="clickAddress()"><div  class="icon-wrapper"><img  src="/images/address_icon.png" lazy-load /></div><div  class="info-text"><div  class="user-info"><div  class="user-name van-ellipsis">{{isDefault.realName || '-'}}</div><div  class="user-phone van-ellipsis">{{ isDefault.phone }}</div></div><div  class="user-address">
       {{ isDefault.province }}{{ isDefault.city }}{{ isDefault.district }}{{ isDefault.detail }}
-    </div>
-</div>
-<div  class="right-icon" v-show="!!isShowRightIcon"><van-icon  name="arrow" custom-class="icon"></van-icon>
-</div>
-</div>
+    </div></div><div  class="right-icon" v-show="!!isShowRightIcon"><van-icon  name="arrow" custom-class="icon"></van-icon></div></div>
   </div>
 </template>
 

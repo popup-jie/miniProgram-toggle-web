@@ -1,19 +1,6 @@
 <template>
   <div class="components-class">
-    <div  class="two-columns"><div :class="columns-wrapper item.noBorder ? 'noBorder' : ''" v-for="(item, index) in forlist" @click.stop="lookDetail(item)" :key="index"><div  class="image-wrapper"><img :src="item.image0" lazy-load mode="aspectFit" />
-</div>
-<div  class="columns-title van-ellipsis">{{ item.goodsName }}</div>
-<div  class="columns-desc van-ellipsis">{{ item.goodsInfo }}</div>
-<div  class="columns-control"><div  class="price"><block  v-for="(price, index) in item.priceRange" :key="index"><span  class="symbol">¥</span>
-<span >{{price || '0'}}</span>
-<span  v-if="item.priceRange.length > 1 && index == 0">-</span>
-</block>
-</div>
-<div  class="add"><div  class="btn">去购买</div>
-</div>
-</div>
-</div>
-</div>
+    <div  class="two-columns"><div :class="columns-wrapper item.noBorder ? 'noBorder' : ''" v-for="(item, index) in forlist" @click.stop="lookDetail(item)" :key="index"><div  class="image-wrapper"><img :src="item.image0" lazy-load mode="aspectFit" /></div><div  class="columns-title van-ellipsis">{{ item.goodsName }}</div><div  class="columns-desc van-ellipsis">{{ item.goodsInfo }}</div><div  class="columns-control"><div  class="price"><block  v-for="(price, index) in item.priceRange" :key="index"><span  class="symbol">¥</span><span >{{price || '0'}}</span><span  v-if="item.priceRange.length > 1 && index == 0">-</span></block></div><div  class="add"><div  class="btn">去购买</div></div></div></div></div>
   </div>
 </template>
 

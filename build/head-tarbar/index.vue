@@ -1,15 +1,6 @@
 <template>
   <div class="components-class">
-    <div  class="prohibition custom-class"><div  class="nav":style="height:  nav.height + 5 + 'px';background-color:{{color}}"><div :style="height: nav.top + 'px'"></div>
-<div :style="height: nav.height - nav.top + 'px'" class="warpper"><div :class="left-icon isGoBack ? 'left-icond': ''"><van-icon  name="arrow-left" custom-class="arrow-left" v-if="isGoBack" @click.stop="navBack()"><slot  name="left-icon"></slot>
-</van-icon>
-</div>
-<div  class="title">{{title}}</div>
-</div>
-<div  style="height: 8px"></div>
-</div>
-<div  v-if="isSeat":style="height:  nav.height + 'px'"></div>
-</div>
+    <div  class="prohibition custom-class"><div  class="nav":style="height:  nav.height + 5 + 'px';background-color:{{color}}"><div :style="height: nav.top + 'px'"></div><div :style="height: nav.height - nav.top + 'px'" class="warpper"><div :class="left-icon isGoBack ? 'left-icond': ''"><van-icon  name="arrow-left" custom-class="arrow-left" v-if="isGoBack" @click.stop="navBack()"><slot  name="left-icon"></slot></van-icon></div><div  class="title">{{title}}</div></div><div  style="height: 8px"></div></div><div  v-if="isSeat":style="height:  nav.height + 'px'"></div></div>
   </div>
 </template>
 

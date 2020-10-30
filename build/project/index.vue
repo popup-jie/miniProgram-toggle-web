@@ -1,21 +1,6 @@
 <template>
   <div class="components-class">
-    <div  class="goods-list custom-class"><div  class="goods-image"><img :src="images" mode="aspectFit" lazy-load />
-</div>
-<div  class="goods-info-wrapper"><div  class="goods-info-top"><div  class="goods-info-header"><div  class="goods-title van-ellipsis">{{title || '益生君益生君益生君' }}</div>
-</div>
-<div  class="goods-info-sku"><div  class="goods-info-sku-spec"><div  v-for="(item, index) in spec" :key="index">{{item.name}}：{{item.value}}</div>
-<div  v-if="stringSpec && spec.length == 0">{{stringSpec}}</div>
-</div>
-</div>
-</div>
-<div  class="goods-info-bottom"><div  class="price"><span  class="red">¥</span>
-<span >{{utils.toDecimal2(subtotal || '1999')}}</span>
-</div>
-<div  class="price-count">x{{count || '100' }}</div>
-</div>
-</div>
-</div>
+    <div  class="goods-list custom-class"><div  class="goods-image"><img :src="images" mode="aspectFit" lazy-load /></div><div  class="goods-info-wrapper"><div  class="goods-info-top"><div  class="goods-info-header"><div  class="goods-title van-ellipsis">{{title || '益生君益生君益生君' }}</div></div><div  class="goods-info-sku"><div  class="goods-info-sku-spec"><div  v-for="(item, index) in spec" :key="index">{{item.name}}：{{item.value}}</div><div  v-if="stringSpec && spec.length == 0">{{stringSpec}}</div></div></div></div><div  class="goods-info-bottom"><div  class="price"><span  class="red">¥</span><span >{{utils.toDecimal2(subtotal || '1999')}}</span></div><div  class="price-count">x{{count || '100' }}</div></div></div></div>
   </div>
 </template>
 

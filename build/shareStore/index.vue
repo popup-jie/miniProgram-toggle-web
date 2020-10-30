@@ -1,31 +1,6 @@
 <template>
   <div class="components-class">
-    <van-popup  round z-index="100" class="sharePopUp" position="bottom" closeable:show="show" @close="onClose"><div  class="con"><div  class="h3_title"><span >选择分享方式</span>
-</div>
-<div  class="shareType"><div  class="ul"><div  class="li"><block  v-if="!userLogin"><button  @getuserinfo="getUserInfo" open-type="getUserInfo" class="saveBtn"><div  class="li_top"><img  src="/images/merchant/pop_share_img@2x.png" />
-</div>
-<div  class="li_bottom"><span >保存二维码图片</span>
-</div>
-</button>
-</block>
-<block  v-if="userLogin"><button  @click="createShareImage()"><div  class="li_top"><img  src="/images/merchant/pop_share_img@2x.png" />
-</div>
-<div  class="li_bottom"><span >保存二维码图片</span>
-</div>
-</button>
-</block>
-</div>
-<div  class="li"><button  open-type="share"><div  class="li_top"><img  mode="widthFix" src="/images/merchant/pop_share_applets@2x.png" />
-</div>
-<div  class="li_bottom"><span >分享小程序</span>
-</div>
-</button>
-</div>
-</div>
-</div>
-</div>
-</van-popup>
-<sharebox  @onsuccess="shareOnSuccess" type="2" id="shareBox"></sharebox>
+    <van-popup  round z-index="100" class="sharePopUp" position="bottom" closeable:show="show" @close="onClose"><div  class="con"><div  class="h3_title"><span >选择分享方式</span></div><div  class="shareType"><div  class="ul"><div  class="li"><block  v-if="!userLogin"><button  @getuserinfo="getUserInfo" open-type="getUserInfo" class="saveBtn"><div  class="li_top"><img  src="/images/merchant/pop_share_img@2x.png" /></div><div  class="li_bottom"><span >保存二维码图片</span></div></button></block><block  v-if="userLogin"><button  @click="createShareImage()"><div  class="li_top"><img  src="/images/merchant/pop_share_img@2x.png" /></div><div  class="li_bottom"><span >保存二维码图片</span></div></button></block></div><div  class="li"><button  open-type="share"><div  class="li_top"><img  mode="widthFix" src="/images/merchant/pop_share_applets@2x.png" /></div><div  class="li_bottom"><span >分享小程序</span></div></button></div></div></div></div></van-popup><sharebox  @onsuccess="shareOnSuccess" type="2" id="shareBox"></sharebox>
   </div>
 </template>
 

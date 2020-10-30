@@ -29,7 +29,7 @@ const vueComponentsPath = '../build'
 const vueTemplatePath = './vueTemplate/vue'
 
 // 小程序路由组件
-const miniProgramPath = '../wechat/components'
+const miniProgramPath = '../wechat/components/bottom-popup'
 
 
 module.exports = {
