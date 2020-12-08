@@ -22,13 +22,16 @@ const pageConfig = {
   destroyed: 'onUnload'
 }
 
+// 输出目录
+const outPath = 'build'
+
 // vue组件地址
 const vueComponentsPath = '../build'
 
 // vue模板文件地址
 const vueTemplatePath = './vueTemplate/vue'
 
-// 小程序路由组件
+// 输入目录
 const miniProgramPath = '../wechat/components/bottom-popup'
 
 
@@ -37,5 +40,6 @@ module.exports = {
   pageConfig,
   vueComponentsPath,
   vueTemplatePath,
-  miniProgramPath
+  miniProgramPath,
+  outPath
 }

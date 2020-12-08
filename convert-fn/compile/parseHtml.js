@@ -25,15 +25,14 @@ function htmlToggle(str) {
       nodeList.push(node)
       node = ''
     }
-  }, { decodeEntities: true })
+  }, { decodeEntities: true, xmlMode: true })
 
   parser.write(str);
 
+  parser.parseComplete()
+
   parser.end();
-  // console.log(nodeList)
-  // console.log(nodeList.join(''))
   return nodeList.join('')
-  // console.log(parser)
 }
 
 function generateEndTag(str, tag) {
@@ -159,9 +158,7 @@ function generateStartTag(tag, attribs) {
       else {
         if (attribs[oldStr].indexOf('{{') > -1) {
 
-          // 需要判断 小程序这种逻辑： style="height: {{omd}}px; width: {{dd}}; postion: {{postionType}}"
-
-          // 如果存在 ; 或者 : 符号，需要遍历重新递归
+          // 解决： style="height: {{omd}}px; width: {{dd}}; postion: {{postionType}}"
           let str = getBracesText(attribs[oldStr])
           attr += ` :${item}="${str}"`
         } else {

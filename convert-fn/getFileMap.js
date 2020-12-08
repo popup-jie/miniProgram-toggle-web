@@ -18,7 +18,13 @@ const getFileMap = (pathName) => {
       } else {
         let pathArr = newPath.split('\\')
         let file = pathArr.pop()
-        if (file.endsWith('.js') || file.endsWith('.wxml') || file.endsWith('.wxss') || file.endsWith('.scss') || file.endsWith('.json')) {
+        if (
+          file.endsWith('.js') ||
+          file.endsWith('.wxml') ||
+          file.endsWith('.wxss') ||
+          file.endsWith('.scss') ||
+          file.endsWith('.json')
+        ) {
           // 拿到文件名字
           const ddirName = pathArr.pop()
           if (dirs.has(ddirName)) {
@@ -34,6 +40,7 @@ const getFileMap = (pathName) => {
 
   return dirs
 }
+
 module.exports = {
-  getFileMap
+  getFileMap,
 }
