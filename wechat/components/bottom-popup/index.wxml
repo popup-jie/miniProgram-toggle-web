@@ -1,15 +1,15 @@
 <view class="custom-class">
-  <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-class="bottom-popup" custom-style="max-height: {{height}}%">
-    <slot name="title" wx:if="{{ useTitleSlot }}"></slot>
+  <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-class="bottom-popup {{ds == 1 ? 'css' : 'dd'}}" custom-style="max-height: {{height}}%">
+    <slot name="title" wx:if="{{ useTitleSlot }}" />
     <view class="title" wx:else style="{{titleStyle}}">
       {{title}}
       <image src="/images/search_shut.png" class="closeIcon" bind:tap="onClose" />
     </view>
-    <slot></slot>
-    <slot name="footer" wx:if="{{ useFooterSlot }}"></slot>
-    <view class="footer" wx:else>
-      <van-button round custom-class="saveBtn" catch:tap="saveHandle">
-        {{comfirmText || '确认'}}
+    <slot />
+    <slot name="footer" wx:if="{{ useFooterSlot }}" />
+    <view class="footer" wx:for="{{ds}}" wx:for-index="goodIndex" wx:for-item="good" style="height: {{omd}}px; width: {{dd}}; postion: {{postionType}}" wx:else>
+      <van-button round custom-class="saveBtn" catch:tap="saveHandle" wx:for="{{ds}}" wx:for-index="buttnIndex" wx:for-item="button">
+        {{item.status == 1 ? '待发货' : item.status == 2 ? '拣货中':item.status == 3 ? '运输中':'已签收'}}
       </van-button>
     </view>
   </van-popup>

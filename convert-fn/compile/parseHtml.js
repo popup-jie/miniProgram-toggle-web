@@ -40,12 +40,15 @@ function generateEndTag(str, tag) {
     tag = '</div>'
   } else if (tag == 'text') {
     tag = '</span>'
-  } else if (tag == 'slot') {
-    tag = '</slot>'
-  } else if (tag == 'img' || tag == 'input' || tag == 'wxs') {
+  }
+  //  else if (tag == 'slot') {
+  //   tag = '</slot>'
+  // } 
+  // || tag == "slot"
+  else if (tag == 'img' || tag == 'input' || tag == 'wxs') {
     tag = ''
   } else {
-    tag = `</${tag}>`
+    tag = `</${tag}>\n`
   }
 
   return str + tag
@@ -71,6 +74,14 @@ function generateStartTag(tag, attribs) {
 
     if (oldStr === 'wx:else') {
       item = 'v-else'
+    }
+
+    if (oldStr === 'custom-class') {
+      item = 'class'
+    }
+
+    if (oldStr === 'custom-style') {
+      item = 'style'
     }
 
     // 处理nodes富文本信息
@@ -140,6 +151,7 @@ function generateStartTag(tag, attribs) {
       let str = getBracesText(attribs[oldStr])
       attr += ` ${item}="${str}"`
     }
+
     else if (item.indexOf('wx:elif') > -1) {
       item = item.replace('wx:elif', 'v-else-if')
       let str = getBracesText(attribs[oldStr])
@@ -157,8 +169,6 @@ function generateStartTag(tag, attribs) {
       }
       else {
         if (attribs[oldStr].indexOf('{{') > -1) {
-
-          // 解决： style="height: {{omd}}px; width: {{dd}}; postion: {{postionType}}"
           let str = getBracesText(attribs[oldStr])
           attr += ` :${item}="${str}"`
         } else {
@@ -179,36 +189,31 @@ function generateStartTag(tag, attribs) {
     }
   }
 
+  // || tag == 'slot'
   if (tag == 'img' || tag == 'input' || tag == 'wxs') {
-    return `<${tag}${attr} />\r`
+    return `<${tag}${attr} />
+    `
   } else {
-    return `<${tag}${attr}>\r`
+    return `<${tag}${attr}>
+    `
   }
 }
 
+// 解决： style="height: {{omd}}px; width: {{dd}}; postion: {{postionType}}"
+// => :style=`height: ${omd}px; width: ${dd}; postion: ${postionType}`
 function getBracesText(str) {
   let newstr = str
   if (str.indexOf(';') > -1 || str.indexOf(':') > -1) {
-    newstr = ''
-    // height: {{omd}}px; width: {{dd}}; postion: {{postionType}}
-    const semicolonArr = str.split(';')
-    semicolonArr.forEach(semicolon => {
-      const colon = semicolon.split(':')
-      // 移除}} 后的字符，转换为字符串
-      let bracesIndex = colon[1].indexOf('}}')
-      if (bracesIndex > -1) {
-        const extraStr = colon[1].slice(bracesIndex + 2, colon[1].length)
-        colon[1] = colon[1].replace(extraStr, '') + ` + '${extraStr};'`;
-      }
-      newstr += `'${colon[0]}:' + ${colon[1]}`
-    })
+    newstr = str.replace(/{{/g, '${').replace(/}}/g, '}')
+
+    return '`' + _getBracesText(newstr) + '`'
   }
   return _getBracesText(newstr)
 }
+
 const _getBracesText = (str) => {
   str = str.replace('{{', '').replace('}}', '')
   return str.trim()
-
 }
 
 
