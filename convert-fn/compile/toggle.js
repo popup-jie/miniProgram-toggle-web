@@ -202,7 +202,13 @@ const traverseJsVisitor = {
   }
 }
 
-function toggle(str) {
+/**
+ * 转换JS
+ * @param {文件str} str 
+ * @param {文件路径} fpath 
+ * return code
+ */
+function toggle(str, fpath) {
   let result = babel.transform(str, {
     plugins: [
       { visitor: traverseJsVisitor },
@@ -215,8 +221,6 @@ function toggle(str) {
   })
   let content = result.code.trim()
   return content
-  // console.log(content)
-  // console.log(result.code.trim())
 }
 
 // 获取小程序props组件下的observer 组成watch方法
@@ -277,8 +281,8 @@ function toggleJsonToStr(nowFile, jsonFileStr) {
   return nowFile
 }
 
-// 还有template模板引入，可以考虑不支持，用组件代替
-function toggleWxmlToStr(nowFile, wxmlFileStr) {
+// template模板引入，可以考虑不支持，用组件代替
+function toggleWxmlToStr(nowFile, wxmlFileStr, componentPath) {
   // 匹配删除所有wxs开头的标签
   const wxml = wxmlFileStr.match(/\<wxs.*\/\>/g)
   if (wxml) {
@@ -293,6 +297,9 @@ function toggleWxmlToStr(nowFile, wxmlFileStr) {
           fromValue = moduleName[d][2]
         }
       }
+      global.nowFileCache.set(importModuleName, fromValue)
+      // global.wechatWxsMapCache.setResolverPath(componentPath + '_' + importModuleName, fromValue)
+
       nowFile = nowFile.slice(-1, 0) + `import ${importModuleName} from "${fromValue}"\n` + nowFile.slice(0)
     }
   }

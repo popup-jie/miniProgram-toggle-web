@@ -1,7 +1,13 @@
-<view class="custom-class">
+<view data-id="{{ind}}" catch:tap="onClickHande" data-item="{{imd}}" data-val="{{val}}"></view>
+<!-- <view class="custom-class">
   <van-popup show="{{ show }}" bind:close="onClose" position="bottom" custom-class="bottom-popup {{ds == 1 ? 'css' : 'dd'}}" custom-style="max-height: {{height}}%">
     <slot name="title" wx:if="{{ useTitleSlot }}" />
-    <view class="title" wx:else style="{{titleStyle}}">
+    <view class="title" wx:else style="{{titleStyle}}"
+      catch:tap="onClickHande"
+      data-id="{{ind}}"
+      data-item="{{imd}}"
+      data-val="{{val}}"
+    >
       {{title}}
       <image src="/images/search_shut.png" class="closeIcon" bind:tap="onClose" />
     </view>
@@ -13,4 +19,4 @@
       </van-button>
     </view>
   </van-popup>
-</view>
+</view> -->

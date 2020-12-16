@@ -32,7 +32,7 @@ const vueComponentsPath = '../build'
 const vueTemplatePath = './vueTemplate/vue'
 
 // 输入目录
-const miniProgramPath = '../wechat/components/bottom-popup'
+const miniProgramPath = '../wechat/components/order-goods-panel'
 
 
 module.exports = {

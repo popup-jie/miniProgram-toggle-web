@@ -1,7 +1,10 @@
 const path = require('path')
 const fs = require('fs')
 const { vueComponentsPath, vueTemplatePath, outPath } = require('../config')
+const { resolver } = require('../utils.js/resovler')
 
+// 储存小程序页面上用到的wxs文件
+let _resolver = resolver()
 
 // 输出目录
 const _outPath = path.join(process.cwd(), outPath)
@@ -16,15 +19,15 @@ const { htmlToggle } = require('./parseHtml')
 
 const wechatTowebapp = (map) => {
   for (let [key, value] of map.entries()) {
-    // console.log(value[0])
-    // console.log(_outPath);
+
     let filePath = value[0].split('\\')
     filePath.pop()
     // 删除 /compoents 前的磁盘路径
     let startIndex = filePath.indexOf('components')
     filePath.splice(0, startIndex + 1)
-
     let componentspath = path.join(_VueComponentsPath, '/', filePath.join('//'))
+
+    global.nowFileCache = _resolver.initCahe(componentspath)
 
     fs.mkdir(componentspath, { recursive: true }, (err) => {
       let file = fs.readFileSync(filename, 'utf8');
@@ -45,14 +48,13 @@ const wechatTowebapp = (map) => {
           } else if (value[i].endsWith('.wxml')) {
             // 这里主要是追加wxs标签，到小程序，调整成import引入方法
             let wxmlFileStr = fs.readFileSync(value[i], 'utf8');
-            let returnNewFile = toggleWxmlToStr(jsScriptFileStr, wxmlFileStr)
-            wxmlFileStr = returnNewFile.wxmlFileStr
+            let returnNewFile = toggleWxmlToStr(jsScriptFileStr, wxmlFileStr, componentspath)
             jsScriptFileStr = returnNewFile.jsScriptFileStr
-            wxmlFileStr = htmlToggle(wxmlFileStr)
+            wxmlFileStr = htmlToggle(returnNewFile.wxmlFileStr)
             file = file.replace('<!-- html -->', wxmlFileStr)
           }
         }
-        jsScriptFileStr = toggle(jsScriptFileStr)
+        jsScriptFileStr = toggle(jsScriptFileStr, componentspath)
         file = file.replace('<!-- script -->', jsScriptFileStr || 'export default {}')
         // 处理js部分
 
@@ -76,7 +78,9 @@ const wechatTowebapp = (map) => {
           })
         }
       }
+      console.log(_resolver.getCacheAllInfo())
     });
+
 
   }
 }

@@ -1,9 +1,10 @@
 const htmlparser2 = require('htmlparser2')
 
 let node = ''
-let nodeList = []
-function htmlToggle(str) {
-  nodeList = []
+let _filePath = null
+function htmlToggle(str, filePath) {
+  _filePath = filePath
+  let nodeList = []
   str = str.replace(/wx\:key=\"\*this\"/g, ' ');
   str = str.replace(/wx\:key\=\"index\"/g, ' ');
   str = str.replace(/navigator/g, 'router-link');
@@ -69,113 +70,134 @@ function generateStartTag(tag, attribs) {
   }
 
 
-  Object.keys(attribs).forEach(item => {
-    let oldStr = item
+  Object.keys(attribs).forEach(key => {
+    let oldStr = key
 
     if (oldStr === 'wx:else') {
-      item = 'v-else'
+      key = 'v-else'
     }
 
     if (oldStr === 'custom-class') {
-      item = 'class'
+      key = 'class'
     }
 
     if (oldStr === 'custom-style') {
-      item = 'style'
+      key = 'style'
     }
 
     // 处理nodes富文本信息
-    if (item.indexOf('nodes') > -1) {
+    if (key.indexOf('nodes') > -1) {
       attr += ` v-html="${attribs[oldStr]}"`
     }
 
     // 特殊处理wx:for边界问题
-    else if (item.indexOf('wx:for') > -1) {
-      if (item == 'wx:for') {
+    else if (key.indexOf('wx:for') > -1) {
+      if (key == 'wx:for') {
         let str = getBracesText(attribs[oldStr])
         attr += ` v-for="(WXFORITEM_ITEM_TEXT, WXFORITEM_ITEM_KEY) in ${str}"`
-      } else if (item == 'wx:for-index') {
+      } else if (key == 'wx:for-index') {
         wxForItemKey = attribs[oldStr]
         attr += ` :key="${wxForItemKey}"`
-      } else if (item == 'wx:for-item') {
+      } else if (key == 'wx:for-item') {
         wxForItemText = attribs[oldStr]
       }
     }
 
-    // 特殊处理 data-xxx
-    else if (/data-*/.test(item)) {
-      let newStr = attr.split(' ')
-      newStr.forEach((originStr, key, arr) => {
-        if (originStr.indexOf('=') > -1) {
-          let splitEqual = originStr.split('=')
-          if (splitEqual[0].indexOf('@click') > -1) {
-            let result = splitEqual[1].substring(splitEqual[1].indexOf("(") + 1, splitEqual[1].indexOf(")"))
-            let fnName = splitEqual[1].substring(0, splitEqual[1].indexOf('('))
-            let str = getBracesText(attribs[oldStr])
-            if (!result) {
-              result = str.split(',')
-            } else {
-              result = result.split(',')
-              result.push(str)
-            }
-            newStr[key] = `${splitEqual[0]}=${fnName}(${result.join(',')})"`
-          }
-        }
-      })
-      attr = newStr.join(' ')
-    }
-
-    else if (item.indexOf('bind') > -1 || item.indexOf('catch') > -1) {
-      if (/bind(:)?tap*/.test(item) || /catch(:)?tap*/.test(item)) {
-        attribs[oldStr] = `${attribs[oldStr]}()`
+    else if (key.indexOf('bind') > -1 || key.indexOf('catch') > -1) {
+      if (/bind(:)?tap*/.test(key) || /catch(:)?tap*/.test(key)) {
+        attribs[oldStr] = `${attribs[oldStr]}`
       }
-      item = item.replace(/bind(:)?tap*/, '@click')
-      item = item.replace(/catch(:)?tap*/, '@click.stop')
-      if (item.indexOf('bind') > -1 || item.indexOf('catch') > -1) {
-        item = item.replace(/capture-catch(:)?/, '@')
-        item = item.replace(/capture-bind(:)?/, '@')
-        item = item.replace(/catch(:)?/, '@')
-        item = item.replace(/bind(:)?/, '@')
+      key = key.replace(/bind(:)?tap*/, '@click')
+      key = key.replace(/catch(:)?tap*/, '@click.stop')
+      if (key.indexOf('bind') > -1 || key.indexOf('catch') > -1) {
+        key = key.replace(/capture-catch(:)?/, '@')
+        key = key.replace(/capture-bind(:)?/, '@')
+        key = key.replace(/catch(:)?/, '@')
+        key = key.replace(/bind(:)?/, '@')
       }
       // 处理touchstart touchmove touchcancel touchend
-      item = item.replace('touchstart', 'mousedown')
-      item = item.replace('touchmove', 'mousemove.prevent')
-      item = item.replace('touchcancel', 'mouseup')
-      item = item.replace('touchend', 'mouseup')
+      key = key.replace('touchstart', 'mousedown')
+      key = key.replace('touchmove', 'mousemove.prevent')
+      key = key.replace('touchcancel', 'mouseup')
+      key = key.replace('touchend', 'mouseup')
 
-      attr += ` ${item}="${attribs[oldStr]}"`
+      //这里处理data-xxx
+      let jsonStr = ''
+      for (let _key in attribs) {
+        if (/data-*/.test(_key)) {
+          let _s = _key.split('-')
+          // 将data-id="{{uid}}" => fn({id: uid})
+          if (jsonStr) { jsonStr += ', ' }
+          jsonStr += `${_s[1]}:${_getBracesText(attribs[_key])}`
+        }
+      }
+
+      if (!jsonStr) {
+        attr += ` ${key}="${attribs[oldStr]}()"`
+      } else {
+        attr += ` ${key}="${attribs[oldStr]}({${jsonStr}})"`
+      }
     }
 
-    else if (item.indexOf('wx:if') > -1) {
-      item = item.replace('wx:if', 'v-if')
+    // 特殊处理 data-xxx
+    //TODO: 暂时不针对 data-xxx处理，保留原有的数据，方便html转小程序操作
+
+    // else if (/data-*/.test(key)) {
+
+    // let newStr = attr.split(' ')
+    // newStr.forEach((originStr, key, arr) => {
+    //   if (originStr.indexOf('=') > -1) {
+    //     let splitEqual = originStr.split('=')
+    //     if (splitEqual[0].indexOf('@click') > -1) {
+    //       let result = splitEqual[1].substring(splitEqual[1].indexOf("(") + 1, splitEqual[1].indexOf(")"))
+    //       let fnName = splitEqual[1].substring(0, splitEqual[1].indexOf('('))
+    //       let str = getBracesText(attribs[oldStr])
+    //       if (!result) {
+    //         result = str.split(',')
+    //       } else {
+    //         result = result.split(',')
+    //         result.push(str)
+    //       }
+    //       newStr[key] = `${splitEqual[0]}=${fnName}(${result.join(',')})"`
+    //     }
+    //   }
+    // })
+    // attr = newStr.join(' ')
+    // }
+
+    else if (key.indexOf('wx:if') > -1) {
+      key = key.replace('wx:if', 'v-if')
       let str = getBracesText(attribs[oldStr])
-      attr += ` ${item}="${str}"`
+      attr += ` ${key}="${str}"`
     }
 
-    else if (item.indexOf('wx:elif') > -1) {
-      item = item.replace('wx:elif', 'v-else-if')
+    else if (key.indexOf('wx:elif') > -1) {
+      key = key.replace('wx:elif', 'v-else-if')
       let str = getBracesText(attribs[oldStr])
-      attr += ` ${item}="${str}"`
+      attr += ` ${key}="${str}"`
     }
-    else if (item.indexOf('hidden') > -1) {
-      item = item.replace('hidden', 'v-show')
+
+    else if (key.indexOf('hidden') > -1) {
+      key = key.replace('hidden', 'v-show')
       let str = getBracesText(attribs[oldStr])
-      attr += ` ${item}="!${str}"`
+      attr += ` ${key}="!${str}"`
     }
+
     else {
       let str = attribs[oldStr]
       if (str.trim() == '') {
-        attr += ` ${item}`
+        attr += ` ${key}`
       }
       else {
         if (attribs[oldStr].indexOf('{{') > -1) {
-          let str = getBracesText(attribs[oldStr])
-          attr += ` :${item}="${str}"`
+          let _str = getBracesText(attribs[oldStr])
+          attr += ` :${key}="${_str}"`
         } else {
-          attr += ` ${item}="${str}"`
+          attr += ` ${key}="${str}"`
         }
       }
     }
+
   })
   // 覆盖v-for
   if (attr.indexOf('WXFORITEM_ITEM_TEXT') > -1) {
@@ -205,14 +227,19 @@ function getBracesText(str) {
   let newstr = str
   if (str.indexOf(';') > -1 || str.indexOf(':') > -1) {
     newstr = str.replace(/{{/g, '${').replace(/}}/g, '}')
-
     return '`' + _getBracesText(newstr) + '`'
   }
+
   return _getBracesText(newstr)
 }
 
 const _getBracesText = (str) => {
   str = str.replace('{{', '').replace('}}', '')
+  // if (str.indexOf('.') > -1) {
+  // global.wechatWxsMapCache.getResolverFn(_filePath + '_' +)
+  // }
+  // setResolverFn
+  // global.wechatWxsMapCache.setResolverPath(componentPath + '_' + importModuleName, fromValue)
   return str.trim()
 }
 

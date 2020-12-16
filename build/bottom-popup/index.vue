@@ -1,26 +1,7 @@
 <template>
   <div class="components-class">
-    <div class="custom-class">
-    <van-popup :show="show" @close="onClose" position="bottom" :class="`bottom-popup ${ds == 1 ? 'css' : 'dd'}`" :style="`max-height: ${height}%`">
-    <slot name="title" v-if="useTitleSlot">
-    </slot>
-<div class="title" v-else :style="titleStyle">
-    
-      {{title}}
-      <img src="/images/search_shut.png" class="closeIcon" @click="onClose()" />
+    <div :data-id="ind" @click.stop='onClickHande({id:ind, item:imd, val:val})' :data-item="imd" :data-val="val">
     </div>
-<slot>
-    </slot>
-<slot name="footer" v-if="useFooterSlot">
-    </slot>
-<div class="footer" v-for="(good, goodIndex) in ds" :key="goodIndex" :style="`height: ${omd}px; width: ${dd}; postion: ${postionType}`" v-else>
-    <van-button round class="saveBtn" @click.stop="saveHandle()" v-for="(button, buttnIndex) in ds" :key="buttnIndex">
-    
-        {{item.status == 1 ? '待发货' : item.status == 2 ? '拣货中':item.status == 3 ? '运输中':'已签收'}}
-      </van-button>
-</div>
-</van-popup>
-</div>
 
   </div>
 </template>
