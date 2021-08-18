@@ -85,6 +85,7 @@ const visitorWatch = {
         const childProp = item.get('value').get('properties')
         childProp.length > 0 && childProp.forEach(child => {
           // 处理watch
+          // TODO: watch 问题需要深拷贝,  immediate: true,
           if (child.get('key').isIdentifier({ 'name': 'observer' })) {
             const keyName = child.parentPath.container.key.name
             createdWatchByProps(child, keyName, path)
@@ -209,18 +210,22 @@ const traverseJsVisitor = {
  * return code
  */
 function toggle(str, fpath) {
-  let result = babel.transform(str, {
-    plugins: [
-      { visitor: traverseJsVisitor },
-      { visitor },
-      { visitor: visitorData },
-      { visitor: visitorWatch },
-      { visitor: visitorDelData }
+  try {
+    let result = babel.transform(str, {
+      plugins: [
+        { visitor: traverseJsVisitor },
+        { visitor },
+        { visitor: visitorData },
+        { visitor: visitorWatch },
+        { visitor: visitorDelData }
 
-    ],
-  })
-  let content = result.code.trim()
-  return content
+      ],
+    })
+    let content = result.code.trim()
+    return content
+  } catch (e) {
+    console.log(e)
+  }
 }
 
 // 获取小程序props组件下的observer 组成watch方法
@@ -262,7 +267,7 @@ function toggleJsonToStr(nowFile, jsonFileStr) {
 
   const json = JSON.parse(jsonFileStr)
   const comp = json.usingComponents
-  if (Object.keys(comp).length == 0) return nowFile
+  // if (Object.keys(comp).length == 0) return nowFile
   const importArr = []
   for (const i in comp) {
     let splitd = comp[i].split('/')
@@ -297,7 +302,7 @@ function toggleWxmlToStr(nowFile, wxmlFileStr, componentPath) {
           fromValue = moduleName[d][2]
         }
       }
-      global.nowFileCache.set(importModuleName, fromValue)
+      // global.nowFileCache.set(importModuleName, fromValue)
       // global.wechatWxsMapCache.setResolverPath(componentPath + '_' + importModuleName, fromValue)
 
       nowFile = nowFile.slice(-1, 0) + `import ${importModuleName} from "${fromValue}"\n` + nowFile.slice(0)

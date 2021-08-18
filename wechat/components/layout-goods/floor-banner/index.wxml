@@ -1,25 +1,28 @@
 <wxs src="../../../utils/common.wxs" module="utils" />
 <!-- 楼层banner -->
-<view class="floor-banner custom-class" catch:tap="lookDetail" data-item="{{item}}">
-  <view class="image-wrapper">
-    <!-- mode="aspectFit" -->
-    <image src="{{item.image0 }}" lazy-load mode="aspectFit" />
-  </view>
-  <view class="columns-wrapper">
-    <view class="columns-title van-ellipsis">{{ item.goodsName }}</view>
-    <view class="columns-desc {{splitLine}}">{{ item.goodsInfo }}</view>
-    <view class="columns-control bottom">
-      <view class="price" wx:if="{{showPrice}}">
-        <block wx:for="{{item.priceRange}}" wx:key="*this" wx:for-item="price">
-          <text class="symbol">¥</text>
-          <!-- <text>{{ utils.toDecimal2(price || '0') }}</text> -->
-          <text>{{price || '0'}}</text>
-          <text wx:if="{{item.priceRange.length > 1 && index == 0}}">-</text>
-        </block>
-      </view>
-      <view class="add" wx:if="{{goBuy}}">
-        <!-- <image src="/images/add_icon.png" /> -->
-        <view class="btn">去购买</view>
+<view class="floor-banner-wrapper">
+  <view class="floor-banner custom-class" catch:tap="lookDetail" data-item="{{item}}">
+    <view class="image-wrapper">
+      <!-- mode="aspectFit" -->
+      <image src="{{item.image0 }}" lazy-load mode="aspectFit" />
+    </view>
+    <view class="columns-wrapper">
+      <view class="columns-title van-ellipsis">{{ item.goodsName }}</view>
+      <view class="columns-desc {{splitLine}}">{{ item.goodsInfo }}</view>
+      <view class="columns-freeShipping-tag" wx:if="{{isFreeShippingAll}}">包邮</view>
+      <view class="columns-control bottom">
+        <view class="price" wx:if="{{showPrice}}">
+          <block wx:for="{{item.priceRange}}" wx:key="*this" wx:for-item="price">
+            <text class="symbol">¥</text>
+            <!-- <text>{{ utils.toDecimal2(price || '0') }}</text> -->
+            <text>{{ utils.toDecimal2(price || '0')}}</text>
+            <text wx:if="{{item.priceRange.length > 1 && index == 0}}">-</text>
+          </block>
+        </view>
+        <view class="add" catch:tap="btnHandle" data-item="{{item}}" wx:if="{{showBtn}}">
+          <!-- <image src="/images/add_icon.png" /> -->
+          <view class="btn {{btnClass}}">{{btnText}}</view>
+        </view>
       </view>
     </view>
   </view>

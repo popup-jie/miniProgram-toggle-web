@@ -1,0 +1,144 @@
+<wxs src="../../../../utils/common.wxs" module="utils" />
+<van-popup bind:close="onClose" show="{{ show }}" position="bottom" custom-class="guigeSelectAdd">
+  <isIPhoneX custom-class="guigeSelect">
+    <!-- <view class="h2 cus">
+      <text>{{detailsObj.goodsName}}</text>
+    </view> -->
+    <view class="product mb_20 flex">
+      <view class="product_left">
+        <image bindtap="imgShow" data-img="{{currentSkuObj ? currentSkuObj.image : detailsObj.sliderImageList[0]}}"
+          mode="aspectFill" class="img" src="{{currentSkuObj ? currentSkuObj.image : detailsObj.sliderImageList[0]}}" />
+      </view>
+      <view class="product_right">
+        <!-- <view class="pro_top">
+          <view class="title">
+            <text>{{detailsObj.goodsName}}</text>
+          </view>
+          <view class="subtitle mt_10">
+            <text>{{detailsObj.goodsInfo}}</text>
+          </view>
+        </view> -->
+        <view class="pro_bottom flex flex_column flex_end">
+          <view class="price">
+            <block wx:if="{{currentSkuObj}}" wx:key="*this">
+              <view class="addPrice {{(currentSkuObj.activeModule.fullReductionModule && currentSkuObj.activeModule.fullReductionModule.fullReductionFlag && currentSkuObj.activeModule.fullReductionModule.triggerFlag && (currentSkuObj.price > currentSkuObj.activeModule.fullReductionModule.disPrice)) || (currentSkuObj.activeModule.discountObj && currentSkuObj.activeModule.discountObj.isAllDiscount) ? 'fullReductionClass' : ''}}">
+                <text class="subPrice fe3737 mr_10">¥</text>
+                <text class="price fe3737">{{utils.toFixTwo(currentSkuObj.price)}}</text>
+                <block wx:if="{{currentSkuObj && ( currentSkuObj.activeModule.discountObj && currentSkuObj.activeModule.discountObj.isAllDiscount)}}">
+                  <view class="tags_con new ml_20">
+                    <view class="tag">
+                      <text>{{currentSkuObj.activeModule.discountObj.allDiscountNum * 10}}折</text>
+                    </view>
+                  </view>
+                  
+                </block>
+                
+              </view>
+
+              <block wx:if="{{currentSkuObj.activeModule.fullReductionModule && currentSkuObj.activeModule.fullReductionModule.fullReductionFlag && currentSkuObj.activeModule.fullReductionModule.triggerFlag && (currentSkuObj.price > currentSkuObj.activeModule.fullReductionModule.disPrice)}}">
+                <view class="fullReductionClassActive">
+                  <view class="fullReductionClassActive_con">
+                    <text class="fullDesc">优惠后￥</text>
+                    <text class="fullPrice">{{utils.toFixTwo(currentSkuObj.activeModule.fullReductionModule.disPrice)}}</text>
+                  </view>
+                </view>
+              </block>
+
+              <block wx:if="{{currentSkuObj.activeModule.discountObj && currentSkuObj.activeModule.discountObj.isAllDiscount}}">
+                <view class="fullReductionClassActive">
+                  <view class="fullReductionClassActive_con">
+                    <text class="fullDesc">折后￥</text>
+                    <text class="fullPrice">{{utils.toFixTwo(currentSkuObj.discountPrice)}}</text>
+                  </view>
+                </view>
+              </block>
+            </block>
+
+            <block wx:else>
+              <text wx:for="{{detailsObj.priceRangeList}}" wx:key="*this">
+                <text class="subPrice fe3737 mr_10">¥</text>
+                <text class="price fe3737">{{item}}</text>
+                <text class="price fe3737" wx:if="{{index != detailsObj.priceRangeList.length-1}}"> - </text>
+              </text>
+            </block>
+          </view>
+
+          <block wx:if="{{selectButtonList&&selectButtonList.length>0}}">
+            <view class="selected">
+              <text class="mr_20">已选:</text>
+              <text class="mr_20" wx:for="{{selectButtonList}}" wx:key="*this">“{{item.value}}”</text>
+            </view>
+          </block>
+
+        </view>
+
+      </view>
+    </view>
+    <view class="addDesc">
+      <block wx:if="{{currentSkuObj && (currentSkuObj.activeModule.fullReductionModule && currentSkuObj.activeModule.fullReductionModule.fullReductionFlag) || (currentSkuObj.activeModule.fullGiftModule && currentSkuObj.activeModule.fullGiftModule.fullGiftFlag)}}">
+        
+        <view class="addFullReduction">
+          <block wx:if="{{(currentSkuObj.activeModule.fullReductionModule && currentSkuObj.activeModule.fullReductionModule.fullReductionFlag) && ((currentSkuObj.activeModule.fullReductionModule.triggerFlag && currentSkuObj.price - currentSkuObj.activeModule.fullReductionModule.curFullDisObj.discountPrice > 0) || (!currentSkuObj.activeModule.fullReductionModule.triggerFlag))}}">
+            <view class="newTagCon">
+              <view class="newTagCon_left">
+                <text class="tag">满件减</text>
+              </view>
+              <view class="newTagCon_right">
+                <text>{{utils.fullReducFilter(currentSkuObj)}}</text>
+              </view>
+            </view>
+          </block>
+            
+          <block wx:if="{{(currentSkuObj.activeModule.fullGiftModule && currentSkuObj.activeModule.fullGiftModule.fullGiftFlag)}}">
+            <view class="newTagCon">
+              <view class="newTagCon_left">
+                <text class="tag">满件赠</text>
+              </view>
+              <view class="newTagCon_right">
+                <text>{{utils.fullGiftFilter(currentSkuObj)}}</text>
+              </view>
+            </view>
+          </block>
+          
+        </view>
+      </block>
+      
+    </view>
+    <view class="ul">
+      <view class="li" wx:for="{{detailsObj.skusList}}" wx:key="*this">
+        <view class="title">
+          <text>{{item.name}}</text>
+        </view>
+        <view class="guigeList flex flex_wrap">
+          <view class="listButton" wx:for="{{item.value}}" wx:key="*this" wx:for-item="itemValue"
+            wx:for-index="itemIndex">
+            <button disabled="{{itemValue.disabled}}" data-index="{{index}}" data-itemindex="{{itemIndex}}"
+              bindtap="newSelectGuigeButton" class="newSelectButton {{itemValue.isSelect?'active':''}}"
+              type="default">{{itemValue.value}}</button>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="ul">
+      <view class="liQuantity li mt_10 flex flex_align flex_sb">
+        <view class="title">
+          <text>数量</text>
+        </view>
+        <view class="number">
+          <van-stepper async-change bind:change="quantityChange" value="{{ quantity }}" integer min="1"
+            max="{{ maxQuantity }}" />
+        </view>
+      </view>
+    </view>
+
+    <view class="button mt_20">
+      <button disabled="{{currentSkuObj&&currentSkuObj.id?false:true}}" bindtap="newConfirmButton"
+        class="newLijiButtonActive">确定</button>
+    </view>
+
+    <view class="delete" bindtap="onClose">
+      <image mode="widthFix" src="/images/icon/pop_filter_shut@2x.png"></image>
+    </view>
+  </isIPhoneX>
+</van-popup>

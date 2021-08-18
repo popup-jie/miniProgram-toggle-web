@@ -8,6 +8,7 @@ ybfComponent({
       type: Array,
       value: [],
       observer(newVal) {
+        if (newVal.length <= 0) return
         if (newVal.length % 2 == 0) {
           newVal[newVal.length - 1].noBorder = true
           newVal[newVal.length - 2].noBorder = true
@@ -18,15 +19,33 @@ ybfComponent({
           forlist: newVal
         })
       }
+    },
+    btnClass: String,
+    btnText: {
+      type: String,
+      value: '去购买'
+    },
+    btnIsImage: {
+      type: Boolean,
+      value: false
+    },
+    showBtn: {
+      type: Boolean,
+      value: true
     }
-
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    forlist: []
+    forlist: [],
+    isFreeShippingAll: false
+  },
+  mounted() {
+    this.setData({
+      isFreeShippingAll: getApp().globalData.isFreeShippingAll
+    })
   },
 
   /**
@@ -36,6 +55,10 @@ ybfComponent({
     lookDetail(e) {
       const item = e.currentTarget.dataset.item
       this.$emit('lookDetail', item)
+    },
+    btnHandle(e) {
+      const item = e.currentTarget.dataset.item
+      this.$emit('btnHandle', item)
     }
   }
 })

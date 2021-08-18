@@ -27,7 +27,7 @@ const wechatTowebapp = (map) => {
     filePath.splice(0, startIndex + 1)
     let componentspath = path.join(_VueComponentsPath, '/', filePath.join('//'))
 
-    global.nowFileCache = _resolver.initCahe(componentspath)
+    // global.nowFileCache = _resolver.initCahe(componentspath)
 
     fs.mkdir(componentspath, { recursive: true }, (err) => {
       let file = fs.readFileSync(filename, 'utf8');
@@ -78,7 +78,7 @@ const wechatTowebapp = (map) => {
           })
         }
       }
-      console.log(_resolver.getCacheAllInfo())
+      // console.log(_resolver.getCacheAllInfo())
     });
 
 

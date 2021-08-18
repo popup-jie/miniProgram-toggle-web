@@ -6,24 +6,26 @@
     </view>
     <view class="columns-title van-ellipsis">{{ item.goodsName }}</view>
     <view class="columns-desc van-ellipsis">{{ item.goodsInfo }}</view>
-    <view class="columns-control">
+    <view class="columns-freeShipping-tag" wx:if="{{isFreeShippingAll}}">包邮</view>
+    <view class="columns-control {{isFreeShippingAll ? 'freeShipping': ''}}">
       <view class="price">
         <block wx:for="{{item.priceRange}}" wx:key="*this" wx:for-item="price">
           <text class="symbol">¥</text>
-          <!-- <text>{{ utils.toDecimal2(price || '0') }}</text> -->
-          <text>{{price || '0'}}</text>
+          <text>{{ utils.toDecimal2(price || '0') }}</text>
+          <!-- <text>{{price || '0'}}</text> -->
           <text wx:if="{{item.priceRange.length > 1 && index == 0}}">-</text>
         </block>
       </view>
-      <view class="add">
-        <view class="btn">去购买</view>
+      <view class="add" catch:tap="btnHandle" data-item="{{item}}" wx:if="{{showBtn}}">
+        <image src="/images/details/shopping_shopping_icon@2x.png" wx:if="{{btnIsImage}}" />
+        <view class="btn {{btnClass}}" wx:else>{{btnText}}</view>
         <!-- <image src="/images/add_icon.png" /> -->
       </view>
     </view>
   </view>
   <!-- <view class="columns-wrapper">
     <view class="image-wrapper">
-      <image src="http://shop-file.ybf-china.com/56e174c502984fc481c753cbf509017d.png" />
+      <image src="https://shop-file.ybf-china.com/56e174c502984fc481c753cbf509017d.png" />
     </view>
     <view class="columns-title van-ellipsis">益生君益生君益生君益生君益生君益生君益生君益生君</view>
     <view class="columns-desc van-ellipsis">产品介绍123产品介绍123产品介绍123产品介绍123产品介绍123</view>

@@ -180,7 +180,7 @@ function generateStartTag(tag, attribs) {
     else if (key.indexOf('hidden') > -1) {
       key = key.replace('hidden', 'v-show')
       let str = getBracesText(attribs[oldStr])
-      attr += ` ${key}="!${str}"`
+      attr += ` ${key}="${str}"`
     }
 
     else {
@@ -223,11 +223,29 @@ function generateStartTag(tag, attribs) {
 
 // 解决： style="height: {{omd}}px; width: {{dd}}; postion: {{postionType}}"
 // => :style=`height: ${omd}px; width: ${dd}; postion: ${postionType}`
+
+// class="classa {{a ? b : c}}"
+// =>  class="`classa ${a ? b : c}`"
+
+// TODO: 存在 class="classa {{b}}"
+// =>  :class="classa b`"
+// => 1. class="classa" :class="b" 
+// => 2. :class="`classa ${b}`"
+// => 3. :class="classa " + b
+
 function getBracesText(str) {
   let newstr = str
   if (str.indexOf(';') > -1 || str.indexOf(':') > -1) {
     newstr = str.replace(/{{/g, '${').replace(/}}/g, '}')
     return '`' + _getBracesText(newstr) + '`'
+  } else {
+    let arrStr = newstr.split(' ')
+
+    if (arrStr.length > 1) { 
+      
+    }
+
+    // return ``
   }
 
   return _getBracesText(newstr)
